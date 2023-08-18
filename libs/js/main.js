@@ -1,24 +1,25 @@
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").setView([51.505, -0.09], 13);
+let map = L.map("map").setView([41.505, -0.09], 2);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
- var marker2 = L.marker([51.3, -0.07]).addTo(map);
 
 
  /*====================SEARCH FUNCTION===================*/
 let csvResult = null;
-
+let mainSearchInput = null;
+let layerGroup = L.layerGroup().addTo(map);
+let marker = null;
 const mainSearchButton = document.querySelector(".main-search-btn");
+
 
 mainSearchButton.addEventListener("click", () => {
 
-    const mainSearchInput = document.querySelector(".main-search").value;
+    mainSearchInput = document.querySelector(".main-search").value;
 
     const mainSearch = new XMLHttpRequest();
 
@@ -33,22 +34,57 @@ mainSearchButton.addEventListener("click", () => {
                 dynamicTyping: true,
                 complete: (result) => {
                     csvResult = result.data;
-                    doSomething();
+                    searchBar();
                 },
                 error: (error) => {
                     console.error("Error parsing CSV:", error.message);
                 },
             })
 
-
         }
     }
 
     mainSearch.send();
 
-
 })
 
-function doSomething() {
+function searchBar() {
+    layerGroup.clearLayers();
+
     console.log(csvResult);
+    csvResult.forEach(item => {
+        const itemName = item.name.trim().toLowerCase(); 
+        const searchInput = mainSearchInput.trim().toLowerCase(); 
+        if (itemName.startsWith(searchInput)) {
+            console.log(item.name);  
+            
+            const markerIcon = L.icon({
+                iconUrl: "assets/images/markerIcon.png",
+                iconSize: [30, 30],
+                iconAnchor: [50, 50],
+                popupAnchor: [-35, -55]
+            })
+            
+            marker = L.marker([item.reclat, item.reclong], {
+                icon: markerIcon
+            }).addTo(layerGroup);
+
+            const markerPopup = L.popup().setContent(`
+                <ul class="popup-list" style="list-style: none;">
+                    <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
+                    <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
+                    <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
+                    <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
+                    <li><strong>Year of Impact:</strong> ${item.year}</li>
+                    <li><strong>Latitude:</strong> ${item.reclat}</li>
+                    <li><strong>Longitude:</strong> ${item.reclong}</li>
+                </ul>
+                
+                
+                
+            `);
+            marker.bindPopup(markerPopup).addTo(map);
+
+        }
+    });
 }
