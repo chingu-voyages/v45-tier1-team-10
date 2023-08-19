@@ -55,8 +55,9 @@ function searchBar() {
     csvResult.forEach(item => {
         const itemName = item.name.trim().toLowerCase(); 
         const searchInput = mainSearchInput.trim().toLowerCase(); 
-        if (itemName.startsWith(searchInput)) {
+        if (itemName.includes(searchInput)) {
             console.log(item.name);  
+            // includes method naturally returns more results, but need to decide with team mates whether to use that or startsWith() method
             
             const markerIcon = L.icon({
                 iconUrl: "assets/images/markerIcon.png",
