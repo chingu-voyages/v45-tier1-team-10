@@ -10,6 +10,8 @@
     <title>Fireball</title>
 </head>
 <body>
+
+    <div class="background-image"><img src="" alt=""></div> <!--This is optional. Could use background property in CSS instead.-->
     
     <header>
         <h1 class="project-title">Fireball</h1>
@@ -22,7 +24,34 @@
 
         <button class="cta-btn">Start Exploring</button>
 
-        <table class="results-table"></table>
+        <table class="results-table">
+
+            <thead class="table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Record Class</th>
+                    <th>Mass</th>
+                    <th>Year</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
 
         <div id="map"></div>
 
@@ -34,16 +63,49 @@
 
             <div class="night-day-mode"></div>
 
-            <div class="footer-up-down"></div>
+            <div class="footer-up-down">&#8964;</div>
             
             <div class="table-map-mode"></div>
 
         </section>
 
-        <section class="search-functions">
+        <section class="search-parameters">
 
             <input class="main-search" type="text" placeholder="Enter Search Query">
-            <button class="main-search-btn">Search Now!</button>
+
+            <select name="" id="" class="name-select">
+                <option value=""class="name-select-option">Name</option>
+                <option value="abc"class="name-select-option">A - C</option>
+                <option value="def"class="name-select-option">D - F</option>
+                <option value="ghi"class="name-select-option">G - I</option>
+                <option value="jkl"class="name-select-option">J - L</option>
+                <option value="mno"class="name-select-option">M - O</option>
+                <option value="pqr"class="name-select-option">P - R</option>
+                <option value="stu"class="name-select-option">S - U</option>
+                <option value="vwxyz"class="name-select-option">V - Z</option>
+            </select>
+
+            <select name="" id="" class="mass-select">
+                <option value="" class="mass-select-option">Mass (g)</option>
+            </select>
+
+            <select name="" id="" class="decade-select">
+                <option value="" class="decade-select-option">Decade</option>
+            </select>
+
+            <select name="" id="" class="country-select">
+                <option value="" class="country-select-option">Country</option>
+            </select>
+
+        </section>
+
+        <section class="footer-buttons">
+
+            <button class="main-search-btn">Search</button>
+
+            <button class="reset-btn">Reset</button>
+
+            <button class="github-btn">Github Repo</button>
 
         </section>
 

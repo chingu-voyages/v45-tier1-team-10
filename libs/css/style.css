@@ -1,4 +1,29 @@
-#map {
+/*========================CONTENT DISPLAY==================*/
+
+.content-display .results-table {
+  border: 2px solid;
+  margin: 2rem;
+}
+
+.content-display #map {
     height: 300px;
     width: 800px;
 }
+
+/*=========================FOOTER========================*/
+footer {
+  border-top: 2px solid;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+select {
+    font-size: 16px;
+    width: max-content;
+  }
+
+  option {
+    font-size: 14px;
+    text-align: center;
+  }
+  
