@@ -14,7 +14,14 @@ window.onload = function() {
                 header: true,
                 dynamicTyping: true,
                 complete: (result) => {
-                    csvResult = result.data;
+                    csvResult = [];
+                    result.data.forEach(item => {
+                        if(typeof item.GeoLocation === "string" && typeof item.year === "number" && typeof item["mass (g)"] === "number") {
+                            csvResult.push(item);
+                        }
+                    })
+                    console.log(csvResult);
+                    
                 },
                 error: (error) => {
                     console.error("Error parsing CSV:", error.message);
@@ -40,6 +47,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let layerGroup = L.layerGroup().addTo(map);
 let marker = null;
 
+
+
  /*====================SEARCH FUNCTIONS===================*/
 
 /*MAIN SEARCH BAR*/
@@ -61,49 +70,69 @@ nameInput.addEventListener("change", nameInputFunction);
 
 function nameInputFunction() {
     nameChoice = Array.from(nameInput.value);
-    [let1, let2, let3, let4, let5] = nameChoice;
-    // return nameChoiceDS;
+    // [let1, let2, let3, let4, let5] = nameChoice;
+    return nameChoice;
 }
+
+/*CENTURY SEARCH INPUT*/
+// const centurySelect = document.querySelector(".century-select");
+
+// centurySelect.addEventListener("change", centuryInputFunction);
+
+// function centuryInputFunction() {
+//     const yearVals = csvResult.map(item => item.year).filter(value => typeof value === "number");
+//                     console.log(yearVals);
+//                     const max = Math.max(...yearVals);
+//                     const min = Math.min(...yearVals);
+//                     console.log(max);
+//                     console.log(min);
+//     console.log(centurySelect.value);
+// } RETURN TO THIS LATER!
+
 
 
 /*TAILOR SEARCH*/
 function searchParams() {
+    const nameSelection = nameInputFunction();
+    console.log(nameSelection);
 
-    console.log(csvResult);
     csvResult.forEach(item => {
         const itemName = item.name.trim().toLowerCase(); 
-        if (itemName.startsWith(let1) || itemName.startsWith(let2) || itemName.startsWith(let3) || itemName.startsWith(let4) || itemName.startsWith(let5)) {
-            // console.log(itemName);  
             // includes method naturally returns more results, but need to decide with team mates whether to use that or startsWith() method
+            for(letter of nameSelection) {
+                if(itemName.startsWith(letter)) {
+                    const markerIcon = L.icon({
+                        iconUrl: "assets/images/markerIcon.png",
+                        iconSize: [30, 30],
+                        iconAnchor: [50, 50],
+                        popupAnchor: [-35, -55]
+                    })
+                    
+                    marker = L.marker([item.reclat, item.reclong], {
+                        icon: markerIcon
+                    }).addTo(layerGroup);
+                
+                    const markerPopup = L.popup().setContent(`
+                        <ul class="popup-list" style="list-style: none;">
+                            <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
+                            <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
+                            <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
+                            <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
+                            <li><strong>Year of Impact:</strong> ${item.year}</li>
+                            <li><strong>Latitude:</strong> ${item.reclat}</li>
+                            <li><strong>Longitude:</strong> ${item.reclong}</li>
+                        </ul>
+                        
+                        
+                        
+                    `);
+                    marker.bindPopup(markerPopup).addTo(map);
+                }
+            }
             
-            const markerIcon = L.icon({
-                iconUrl: "assets/images/markerIcon.png",
-                iconSize: [30, 30],
-                iconAnchor: [50, 50],
-                popupAnchor: [-35, -55]
-            })
             
-            marker = L.marker([item.reclat, item.reclong], {
-                icon: markerIcon
-            }).addTo(layerGroup);
-        
-            const markerPopup = L.popup().setContent(`
-                <ul class="popup-list" style="list-style: none;">
-                    <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-                    <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-                    <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-                    <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-                    <li><strong>Year of Impact:</strong> ${item.year}</li>
-                    <li><strong>Latitude:</strong> ${item.reclat}</li>
-                    <li><strong>Longitude:</strong> ${item.reclong}</li>
-                </ul>
-                
-                
-                
-            `);
-            marker.bindPopup(markerPopup).addTo(map);
 
-        }
+        // }
     });
     
 }
@@ -114,38 +143,9 @@ const mainSearchButton = document.querySelector(".main-search-btn");
 mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
+
     layerGroup.clearLayers();
-
-    //probably need to make the call to searchParams() from here
     searchParams();
-
-    //then all this stuff
-    // const markerIcon = L.icon({
-    //     iconUrl: "assets/images/markerIcon.png",
-    //     iconSize: [30, 30],
-    //     iconAnchor: [50, 50],
-    //     popupAnchor: [-35, -55]
-    // })
-    
-    // marker = L.marker([item.reclat, item.reclong], {
-    //     icon: markerIcon
-    // }).addTo(layerGroup);
-
-    // const markerPopup = L.popup().setContent(`
-    //     <ul class="popup-list" style="list-style: none;">
-    //         <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-    //         <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-    //         <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-    //         <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-    //         <li><strong>Year of Impact:</strong> ${item.year}</li>
-    //         <li><strong>Latitude:</strong> ${item.reclat}</li>
-    //         <li><strong>Longitude:</strong> ${item.reclong}</li>
-    //     </ul>
-        
-        
-        
-    // `);
-    // marker.bindPopup(markerPopup).addTo(map);
 
 }
 
