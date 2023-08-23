@@ -49,11 +49,21 @@ let marker = null;
 
  /*====================SEARCH FUNCTIONS===================*/
 
+/*
+    1. select from any input
+    2. input function calls filter for that input
+    3. each filter func takes param of finalItems array
+    4. does filtration then updates finalItems
+    5. search func uses finalItems array
+*/
+
  const searchParameters = {
     openQuery: null,
     nameQuery: null,
     centuryQuery: null
  }
+
+
 
 /*MAIN SEARCH BAR*/
 // let mainSearchInput = null;
@@ -107,37 +117,49 @@ function searchNow() {
 
     layerGroup.clearLayers();
     searchForm.reset();
-    filterOne();
+    nameFilter();
 
 }
 
 
-function filterOne() {
+function nameFilter() {
     
-    const filterTwoItems = [];
+    const centuryFilterItems = [];
 
     csvResult.forEach(item => {
         const itemName = item.name.trim().toLowerCase(); 
-        if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
-            filterTwoItems.push(item);
+
+        if(searchParameters.nameQuery == null) {
+            centuryFilterItems.push(item);
+        } else if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
+            centuryFilterItems.push(item);
         }
+        
     })
 
-    filterTwo(filterTwoItems);
+    centuryFilter(centuryFilterItems);
 
 }
 
 
-function filterTwo(itemsToFilter) {
+function centuryFilter(itemsToFilter) {
 
     const itemsForDisplay = [];
-    const lowEnd = searchParameters.centuryQuery.slice(0, 4);
-    const highEnd = searchParameters.centuryQuery.slice(-4);
+    
 
     itemsToFilter.forEach(item => {
-        if(item.year >= lowEnd && item.year <= highEnd) {
+        if(searchParameters.centuryQuery == null) {
             itemsForDisplay.push(item);
+        } else {
+            const lowEnd = searchParameters.centuryQuery.slice(0, 4);
+            const highEnd = searchParameters.centuryQuery.slice(-4);
+
+            if(item.year >= lowEnd && item.year <= highEnd) {
+                itemsForDisplay.push(item);
+            }
+
         }
+        
     })
 
     displayItems(itemsForDisplay);
@@ -146,6 +168,8 @@ function filterTwo(itemsToFilter) {
 
 
 function displayItems(finalArray) {
+
+    console.log(finalArray);
 
     finalArray.forEach(item => {
 
@@ -175,6 +199,9 @@ function displayItems(finalArray) {
         marker.bindPopup(markerPopup).addTo(map);
 
     })
+
+    Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
+    console.log(searchParameters);
 }
 
 
@@ -183,6 +210,10 @@ function displayItems(finalArray) {
 
 
 
+/*  
+EXTRA IDEAS 
+1. Limit results to 50/100, etc
+*/
 
 
 
