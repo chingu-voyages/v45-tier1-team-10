@@ -49,18 +49,15 @@ let marker = null;
 
  /*====================SEARCH FUNCTIONS===================*/
 
-/*
-    1. select from any input
-    2. input function calls filter for that input
-    3. each filter func takes param of finalItems array
-    4. does filtration then updates finalItems
-    5. search func uses finalItems array
-*/
+let finalItems = csvResult;
+// let searchParams = 0;
+
 
  const searchParameters = {
     openQuery: null,
     nameQuery: null,
-    centuryQuery: null
+    centuryQuery: null,
+    massQuery: null
  }
 
 
@@ -89,6 +86,23 @@ function nameInputFunction() {
     console.log(nameChoice);
     // searchParameters.openQuery = null;
     searchParameters.nameQuery = nameChoice;
+    // searchParams++;
+    nameFilter();
+}
+
+
+function nameFilter() {
+
+    finalItems = [];
+
+    csvResult.forEach(item => {
+        const itemName = item.name.trim().toLowerCase(); 
+        if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
+                    finalItems.push(item);
+                }
+        
+    })
+
 }
 
 
@@ -103,7 +117,63 @@ function centuryInputFunction() {
 
     searchParameters.centuryQuery = centurySelect.value;
 
+    centuryFilter();
+
 } 
+
+
+function centuryFilter() {
+
+        finalItems = [];
+        const lowEnd = searchParameters.centuryQuery.slice(0, 4);
+        const highEnd = searchParameters.centuryQuery.slice(-4);
+
+        csvResult.filter(item => {
+            if(item.year >= lowEnd && item.year <= highEnd) {
+                finalItems.push(item);
+            }
+        })
+
+
+    return finalItems;
+
+}
+
+/*MASS SEARCH INPUT*/
+const massSelect = document.querySelector(".mass-select");
+massSelect.addEventListener("change", massInputFunction);
+
+function massInputFunction() {
+
+    searchParameters.massQuery = massSelect.value;
+
+    massFilter();
+    
+
+    // const massVals = csvResult.map(item => item["mass (g)"]).filter(value => typeof value === "number");
+    //                 console.log(massVals);
+    //                 const max = Math.max(...massVals);
+    //                 const min = Math.min(...massVals);
+    //                 console.log(max);
+    //                 console.log(min);
+}
+
+function massFilter() {
+
+    finalItems = [];
+    const lowMass = searchParameters.massQuery.slice(0, 8);
+    const highMass = searchParameters.massQuery.slice(-8);
+
+    csvResult.filter(item => {
+        if(item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass) {
+            finalItems.push(item);
+        }
+    })
+    console.log(finalItems);
+
+}
+
+
 
 
 /*SEARCH BUTTON*/
@@ -113,65 +183,12 @@ mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
 
-    console.log(searchParameters);
-
     layerGroup.clearLayers();
     searchForm.reset();
-    nameFilter();
 
-}
+    console.log(finalItems);
 
-
-function nameFilter() {
-    
-    const centuryFilterItems = [];
-
-    csvResult.forEach(item => {
-        const itemName = item.name.trim().toLowerCase(); 
-
-        if(searchParameters.nameQuery == null) {
-            centuryFilterItems.push(item);
-        } else if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
-            centuryFilterItems.push(item);
-        }
-        
-    })
-
-    centuryFilter(centuryFilterItems);
-
-}
-
-
-function centuryFilter(itemsToFilter) {
-
-    const itemsForDisplay = [];
-    
-
-    itemsToFilter.forEach(item => {
-        if(searchParameters.centuryQuery == null) {
-            itemsForDisplay.push(item);
-        } else {
-            const lowEnd = searchParameters.centuryQuery.slice(0, 4);
-            const highEnd = searchParameters.centuryQuery.slice(-4);
-
-            if(item.year >= lowEnd && item.year <= highEnd) {
-                itemsForDisplay.push(item);
-            }
-
-        }
-        
-    })
-
-    displayItems(itemsForDisplay);
-
-}
-
-
-function displayItems(finalArray) {
-
-    console.log(finalArray);
-
-    finalArray.forEach(item => {
+    finalItems.forEach(item => {
 
         const markerIcon = L.icon({
             iconUrl: "assets/images/markerIcon.png",
@@ -202,8 +219,8 @@ function displayItems(finalArray) {
 
     Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
     console.log(searchParameters);
-}
 
+}
 
 
 
@@ -217,12 +234,3 @@ EXTRA IDEAS
 
 
 
-
-
-    // const yearVals = csvResult.map(item => item.year).filter(value => typeof value === "number");
-    //                 console.log(yearVals);
-    //                 const max = Math.max(...yearVals);
-    //                 const min = Math.min(...yearVals);
-    //                 console.log(max);
-    //                 console.log(min);
-    // console.log(centurySelect.value);
