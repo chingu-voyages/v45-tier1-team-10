@@ -50,8 +50,6 @@ let marker = null;
  /*====================SEARCH FUNCTIONS===================*/
 
 let finalItems = csvResult;
-// let searchParams = 0;
-
 
  const searchParameters = {
     openQuery: null,
@@ -59,8 +57,7 @@ let finalItems = csvResult;
     centuryQuery: null,
     massQuery: null
  }
-
-
+ 
 
 /*MAIN SEARCH BAR*/
 // let mainSearchInput = null;
@@ -82,12 +79,13 @@ const nameInput = document.querySelector(".name-select");
 nameInput.addEventListener("change", nameInputFunction);
 
 function nameInputFunction() {
+
     nameChoice = Array.from(nameInput.value);
     console.log(nameChoice);
     // searchParameters.openQuery = null;
     searchParameters.nameQuery = nameChoice;
-    // searchParams++;
     nameFilter();
+
 }
 
 
@@ -149,13 +147,6 @@ function massInputFunction() {
 
     massFilter();
     
-
-    // const massVals = csvResult.map(item => item["mass (g)"]).filter(value => typeof value === "number");
-    //                 console.log(massVals);
-    //                 const max = Math.max(...massVals);
-    //                 const min = Math.min(...massVals);
-    //                 console.log(max);
-    //                 console.log(min);
 }
 
 function massFilter() {
