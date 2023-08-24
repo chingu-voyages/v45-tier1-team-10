@@ -49,11 +49,15 @@ let marker = null;
 
  /*====================SEARCH FUNCTIONS===================*/
 
+let finalItems = csvResult;
+
  const searchParameters = {
     openQuery: null,
     nameQuery: null,
-    centuryQuery: null
+    centuryQuery: null,
+    massQuery: null
  }
+ 
 
 /*MAIN SEARCH BAR*/
 // let mainSearchInput = null;
@@ -75,10 +79,28 @@ const nameInput = document.querySelector(".name-select");
 nameInput.addEventListener("change", nameInputFunction);
 
 function nameInputFunction() {
+
     nameChoice = Array.from(nameInput.value);
     console.log(nameChoice);
     // searchParameters.openQuery = null;
     searchParameters.nameQuery = nameChoice;
+    nameFilter();
+
+}
+
+
+function nameFilter() {
+
+    finalItems = [];
+
+    csvResult.forEach(item => {
+        const itemName = item.name.trim().toLowerCase(); 
+        if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
+                    finalItems.push(item);
+                }
+        
+    })
+
 }
 
 
@@ -93,7 +115,56 @@ function centuryInputFunction() {
 
     searchParameters.centuryQuery = centurySelect.value;
 
+    centuryFilter();
+
 } 
+
+
+function centuryFilter() {
+
+        finalItems = [];
+        const lowEnd = searchParameters.centuryQuery.slice(0, 4);
+        const highEnd = searchParameters.centuryQuery.slice(-4);
+
+        csvResult.filter(item => {
+            if(item.year >= lowEnd && item.year <= highEnd) {
+                finalItems.push(item);
+            }
+        })
+
+
+    return finalItems;
+
+}
+
+/*MASS SEARCH INPUT*/
+const massSelect = document.querySelector(".mass-select");
+massSelect.addEventListener("change", massInputFunction);
+
+function massInputFunction() {
+
+    searchParameters.massQuery = massSelect.value;
+
+    massFilter();
+    
+}
+
+function massFilter() {
+
+    finalItems = [];
+    const lowMass = searchParameters.massQuery.slice(0, 8);
+    const highMass = searchParameters.massQuery.slice(-8);
+
+    csvResult.filter(item => {
+        if(item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass) {
+            finalItems.push(item);
+        }
+    })
+    console.log(finalItems);
+
+}
+
+
 
 
 /*SEARCH BUTTON*/
@@ -103,51 +174,12 @@ mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
 
-    console.log(searchParameters);
-
     layerGroup.clearLayers();
     searchForm.reset();
-    filterOne();
 
-}
+    console.log(finalItems);
 
-
-function filterOne() {
-    
-    const filterTwoItems = [];
-
-    csvResult.forEach(item => {
-        const itemName = item.name.trim().toLowerCase(); 
-        if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
-            filterTwoItems.push(item);
-        }
-    })
-
-    filterTwo(filterTwoItems);
-
-}
-
-
-function filterTwo(itemsToFilter) {
-
-    const itemsForDisplay = [];
-    const lowEnd = searchParameters.centuryQuery.slice(0, 4);
-    const highEnd = searchParameters.centuryQuery.slice(-4);
-
-    itemsToFilter.forEach(item => {
-        if(item.year >= lowEnd && item.year <= highEnd) {
-            itemsForDisplay.push(item);
-        }
-    })
-
-    displayItems(itemsForDisplay);
-
-}
-
-
-function displayItems(finalArray) {
-
-    finalArray.forEach(item => {
+    finalItems.forEach(item => {
 
         const markerIcon = L.icon({
             iconUrl: "assets/images/markerIcon.png",
@@ -175,6 +207,10 @@ function displayItems(finalArray) {
         marker.bindPopup(markerPopup).addTo(map);
 
     })
+
+    Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
+    console.log(searchParameters);
+
 }
 
 
@@ -182,16 +218,10 @@ function displayItems(finalArray) {
 
 
 
+/*  
+EXTRA IDEAS 
+1. Limit results to 50/100, etc
+*/
 
 
 
-
-
-
-    // const yearVals = csvResult.map(item => item.year).filter(value => typeof value === "number");
-    //                 console.log(yearVals);
-    //                 const max = Math.max(...yearVals);
-    //                 const min = Math.min(...yearVals);
-    //                 console.log(max);
-    //                 console.log(min);
-    // console.log(centurySelect.value);
