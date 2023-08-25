@@ -61,16 +61,47 @@ let marker = null;
  
 
 /*MAIN SEARCH BAR*/
-// let mainSearchInput = null;
-// const mainSearch = document.querySelector(".main-search");
+let mainSearchInput = null;
+const mainSearch = document.querySelector(".main-search");
 
-// mainSearch.addEventListener("click", searchBar);
-// function searchBar() {
-//     nameInput.value = "";
-//     searchParameters.nameQuery = null;
-//     mainSearchInput = document.querySelector(".main-search").value.trim().toLowerCase();
-//     searchParameters.openQuery = mainSearchInput;
-// }
+mainSearch.addEventListener("click", clearNameInput);
+function clearNameInput() {
+    if(nameInput.value.length > 0) {
+        nameInput.value = "";
+        finalItems = csvResult;
+        searchParameters.nameQuery = null;
+        console.log(searchParameters);
+    }
+}
+
+mainSearch.addEventListener("change", searchBar);
+function searchBar() {
+    
+    mainSearchInput = document.querySelector(".main-search").value.trim().toLowerCase();
+    searchParameters.openQuery = mainSearchInput;
+    textInputFunction();
+    
+}
+
+function textInputFunction() {
+
+    console.log(mainSearchInput);
+
+    if(finalItems.length < 38115) {
+        finalItems = finalItems.filter(item => {
+            return item.name.includes(mainSearchInput);
+        })
+    } else {
+        finalItems = [];
+        csvResult.forEach(item => {
+            const itemName = item.name.trim().toLowerCase(); 
+            if(itemName.includes(mainSearchInput)) {
+                finalItems.push(item);
+            }
+        })
+    }
+
+}
 
 
 /*NAME SEARCH INPUT*/
@@ -81,9 +112,14 @@ nameInput.addEventListener("change", nameInputFunction);
 
 function nameInputFunction() {
 
+    if(mainSearch.value.length > 0) {
+        mainSearch.value = "";
+        searchParameters.openQuery = null;
+        finalItems = csvResult;
+    }
+
     nameChoice = Array.from(nameInput.value);
     console.log(nameChoice);
-    // searchParameters.openQuery = null;
     searchParameters.nameQuery = nameChoice;
     nameFilter();
 
@@ -233,9 +269,7 @@ function searchNow() {
         finalItems = csvResult;
         Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
     console.log(searchParameters);
-    }, 1000);
-
-    
+    }, 1000); 
 
 }
 
