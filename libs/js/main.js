@@ -1,5 +1,7 @@
 /*======================WINDOW ONLOAD===================*/
 let csvResult = null;
+let finalItems = null;
+
 
 window.onload = function() {
     const mainSearch = new XMLHttpRequest();
@@ -18,6 +20,7 @@ window.onload = function() {
                     result.data.forEach(item => {
                         if(typeof item.GeoLocation === "string" && typeof item.year === "number" && typeof item["mass (g)"] === "number") {
                             csvResult.push(item);
+                            finalItems = csvResult;
                         }
                     })                    
                 },
@@ -35,7 +38,7 @@ window.onload = function() {
 
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").setView([41.505, -0.09], 2);
+let map = L.map("map").setView([41.505, -0.09], 1);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -48,8 +51,6 @@ let marker = null;
 
 
  /*====================SEARCH FUNCTIONS===================*/
-
-let finalItems = csvResult;
 
  const searchParameters = {
     openQuery: null,
@@ -91,16 +92,25 @@ function nameInputFunction() {
 
 function nameFilter() {
 
-    finalItems = [];
+    if(finalItems.length < 38115) {
+        finalItems = finalItems.filter(item => {
+            const itemName = item.name.trim().toLowerCase(); 
+            return itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2]);
+        })
+    } else {
 
-    csvResult.forEach(item => {
-        const itemName = item.name.trim().toLowerCase(); 
-        if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
-                    finalItems.push(item);
-                }
-        
-    })
+        finalItems = [];
+    
+        csvResult.forEach(item => {
+            const itemName = item.name.trim().toLowerCase(); 
+            if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
+                        finalItems.push(item);
+                    }
+            
+        })
+    }
 
+    console.log(finalItems.length);
 }
 
 
@@ -122,19 +132,23 @@ function centuryInputFunction() {
 
 function centuryFilter() {
 
-        finalItems = [];
-        const lowEnd = searchParameters.centuryQuery.slice(0, 4);
-        const highEnd = searchParameters.centuryQuery.slice(-4);
+    const lowEnd = searchParameters.centuryQuery.slice(0, 4);
+    const highEnd = searchParameters.centuryQuery.slice(-4);
+
+    if(finalItems.length < 38115) {
+        finalItems = finalItems.filter(item => {
+            return item.year >= lowEnd && item.year <= highEnd;
+        })
+    } else {
+        finalItems = [];   
 
         csvResult.filter(item => {
             if(item.year >= lowEnd && item.year <= highEnd) {
                 finalItems.push(item);
             }
         })
-
-
-    return finalItems;
-
+    } 
+    console.log(finalItems.length);
 }
 
 /*MASS SEARCH INPUT*/
@@ -151,17 +165,24 @@ function massInputFunction() {
 
 function massFilter() {
 
-    finalItems = [];
     const lowMass = searchParameters.massQuery.slice(0, 8);
     const highMass = searchParameters.massQuery.slice(-8);
 
-    csvResult.filter(item => {
-        if(item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass) {
-            finalItems.push(item);
-        }
-    })
-    console.log(finalItems);
+    if(finalItems.length < 38115) {
+        finalItems = finalItems.filter(item => {
+            return item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass;
+        })
+    } else {
+        finalItems = [];
 
+        csvResult.filter(item => {
+            if(item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass) {
+                finalItems.push(item);
+            }
+        })
+
+    }
+    console.log(finalItems.length);
 }
 
 
@@ -208,8 +229,13 @@ function searchNow() {
 
     })
 
-    Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
+    setTimeout(function() {
+        finalItems = csvResult;
+        Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
     console.log(searchParameters);
+    }, 1000);
+
+    
 
 }
 
