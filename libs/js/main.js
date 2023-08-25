@@ -274,7 +274,23 @@ function searchNow() {
 }
 
 
+/*=====================RESET BUTTON==================*/
+const resetButton = document.querySelector(".reset-btn");
+resetButton.addEventListener("click", resetFunction);
 
+function resetFunction() {
+    layerGroup.clearLayers();
+    searchForm.reset();
+}
+
+
+/*=======================GITHUB BUTTON=================*/
+const githubButton = document.querySelector(".github-btn");
+githubButton.addEventListener("click", githubFunction);
+
+function githubFunction() {
+    window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
+}
 
 
 
