@@ -1,28 +1,40 @@
-# voyage-tasks
+<h1>Meteorite Project</h1>
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+# Overview
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+This app was created for the Chingu-voyage v45 project. The api uses data from <i><a href = "https://data.nasa.gov/widgets/c2vx-j9ed">The Meteoritical Society that contains information on all of the known meteorite landings.</a></i>
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+Live Link: Coming soon!
 
-> New Readme coming soon!
+# Features
+Coming soon!
 
-## Team Documents
+# Running project
 
-You may find these helpful as you work together to organize your project.
+Live Link: Coming soon!
+<ul>
+  <li> Clone the repo locally.</li>
+  <li> You're done! Enjoy!</li>
+</ul>
 
-- [Team Project Ideas](./docs/team_project_ideas.md)
-- [Team Decision Log](./docs/team_decision_log.md)
+# Dev dependencies
+<ul>
+  <li><a href = "https://www.figma.com/">Figma</a></li>
+  <li><a href = "https://leafletjs.com/">leafletjs</a></li>
+  <li><a href = "https://www.openstreetmap.org/#map=7/35.948/127.736">Openstreetmap</a></li>
+  <li><a href = "https://data.nasa.gov/resource/gh4g-9sfh.json">meteorite api</a></li>
+</ul>
 
-Meeting Agenda templates (located in the `/docs` directory in this repo):
 
-- Meeting - Voyage Kickoff --> ./docs/meeting-voyage_kickoff.docx
-- Meeting - App Vision & Feature Planning --> ./docs/meeting-vision_and_feature_planning.docx
-- Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
-- Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
+# Contributors
+<ul>
+  <li><a href = "https://github.com/Ch-Amulya">Amulya</a></li>
+  <li><a href = "https://github.com/StevieBrooks">Stevie</a></li>
+  <li><a href = "https://github.com/joemcgee4151986">Joe</a></li>
+</ul>
+
+
+
+
+
+
