@@ -1,0 +1,51 @@
+/* ==========RESPONSIVE STYLES=========== */
+
+/* ==========TABLETS AND SMALLER SCREENS */
+
+@media screen and (max-width: 768px) {
+    .hero {
+       padding-top: 2rem;
+    }
+
+    .project-title {
+        font-size: 2rem;
+    }
+
+    .opening-info {
+        font-size: 1rem;
+    }
+
+    .cta-btn {
+        font-size: 0.8rem;
+    }
+
+    /* .results-table th, .results-table td { 
+          
+    }  */
+}
+
+/* ================SMALLER SMARTPHONES======== */
+
+@media screen and (max-width: 480px) {
+    .hero {
+        padding-top: 1rem;
+    }
+
+    .project-title {
+        font-size: 1.5rem;
+    }
+
+    .opening-info {
+        font-size: 0.9rem;
+    }
+
+    .cta-btn {
+        font-size: 0.7rem;
+    }
+
+    /* .results-table th, .results-table td { 
+          
+    }  */
+}
+
+    
