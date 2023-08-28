@@ -1,3 +1,22 @@
+/*====================NIGHT-DAY-MODE=================*/
+function daymode() {
+    let setTheme = document.body;
+
+    setTheme.classList.toggle("day-mode");
+    
+    const button = document.getElementById("mybtn");
+    
+    if (setTheme.classList.contains("day-mode")) {
+        button.textContent = "NIGHT MODE";
+    } else {
+        button.textContent = "DAY MODE";
+    }
+    
+}
+
+
+
+
 /*======================WINDOW ONLOAD===================*/
 let csvResult = null;
 let finalItems = null;

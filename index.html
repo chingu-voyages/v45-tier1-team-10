@@ -12,7 +12,11 @@
 </head>
 <body>        
         <header class="hero">
-            <h1 class="project-title">Fireball</h1>
+            <nav class="logo">
+                <h1 class="project-title">
+                    <span></span>
+                    Fireball</h1>
+            </nav>
             <h2 class="opening-info">Explore The Meteoritical Society's comprehensive data set of all known meteorite landings across the globe.</h2>
             <button class="cta-btn">Start Exploring</button>
         </header>
@@ -57,6 +61,9 @@
         <section class="mode-toggles">
 
             <div class="night-day-mode">
+                <button id="mybtn" onclick="daymode()"> 
+                    DAY MODE <span id="btn-circle"></span>
+                </button>
             </div>
 
             <div class="footer-up-down">&#8964;</div>
