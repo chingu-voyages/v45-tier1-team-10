@@ -466,5 +466,4 @@ EXTRA IDEAS
 */
 
 
-// need to setr up table and have 10 or more pages to avoid cluttering
 // bug - if user changes mind with param (eg wants 1900 instead of 2000), zero results
