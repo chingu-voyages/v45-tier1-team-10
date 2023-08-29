@@ -7,15 +7,19 @@
    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
    crossorigin=""/>
     <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/mediaqueries.css">
     <title>Fireball</title>
 </head>
-<body>
-
-    <div class="background-image"><img src="" alt=""></div> <!--This is optional. Could use background property in CSS instead.-->
-    
-    <header>
-        <h1 class="project-title">Fireball</h1>
-    </header>
+<body>        
+        <header class="hero">
+            <nav class="logo">
+                <h1 class="project-title">
+                    <span></span>
+                    Fireball</h1>
+            </nav>
+            <h2 class="opening-info">Explore The Meteoritical Society's comprehensive data set of all known meteorite landings across the globe.</h2>
+            <button class="cta-btn">Start Exploring</button>
+        </header>
 
     <section class="content-display">
 
@@ -24,29 +28,34 @@
 
         <button class="cta-btn">Start Exploring</button>
 
-        <div class="table-container">
-            <table class="results-table">
-                <thead class="table-head">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Record Class</th>
-                        <th>Mass</th>
-                        <th>Year</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    
-                </tbody>
-            </table>
-            <div class="table-pagination">
-                <button class="prev-page">Prev</button>
-                <span class="curr-page">Page 1</span>
-                <button class="next-page">Next</button>
-            </div>
-        </div>
+        <table class="results-table">
+
+            <thead class="table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Record Class</th>
+                    <th>Mass</th>
+                    <th>Year</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
 
         <div id="map"></div>
 
@@ -57,8 +66,9 @@
         <section class="mode-toggles">
 
             <div class="night-day-mode">
-                <p class="night-day-goto">Day</p>
-                <div class="toggle-btn"></div>
+                <button id="mybtn" onclick="daymode()"> 
+                    DAY MODE <span id="btn-circle"></span>
+                </button>
             </div>
 
             <div class="footer-up-down">&#8963;</div>
@@ -141,7 +151,6 @@
         </section>
 
     </footer>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
    crossorigin=""></script>
