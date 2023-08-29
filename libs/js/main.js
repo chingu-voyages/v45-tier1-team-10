@@ -1,7 +1,7 @@
 /*======================WINDOW ONLOAD===================*/
 let csvResult = null;
 let finalItems = null;
-
+let resultsTableContainer = null;
 
 window.onload = function() {
     const mainSearch = new XMLHttpRequest();
@@ -36,17 +36,130 @@ window.onload = function() {
 }
 
 
+/*====================GET STARTED========================*/
+
+const brandLogo = document.querySelector(".project-title");
+const openingInfo = document.querySelector(".opening-info");
+const ctaButton = document.querySelector(".cta-btn");
+
+ctaButton.addEventListener("click", () => {
+    ctaButton.style.display = "none";
+    openingInfo.style.display = "none";
+    resultsTableContainer = document.querySelector(".table-container");
+    resultsTableContainer.style.display = "block";
+      // Initial render
+    updatePagination();
+    renderTable(currentPage);
+})
+
+brandLogo.addEventListener("click", () => {
+    ctaButton.style.display = "block";
+    openingInfo.style.display = "block";
+})
+
+
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").setView([41.505, -0.09], 1);
+// let map = L.map("map").setView([41.505, -0.09], 2);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-}).addTo(map);
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '© OpenStreetMap'
+// }).addTo(map);
 
-let layerGroup = L.layerGroup().addTo(map);
-let marker = null;
+// let layerGroup = L.layerGroup().addTo(map);
+// let marker = null;
+
+
+/*==================LOGIC FOR TABLE====================*/
+
+const itemsPerPage = 10;
+
+let resultsTableBody = document.querySelector(".results-table .table-body");
+const prevPageButton = document.querySelector(".prev-page");
+const currPage = document.querySelector(".curr-page");
+const nextPageButton = document.querySelector(".next-page");
+
+let currentPage = 1;
+
+function updatePagination() {
+    const totalPages = Math.ceil(finalItems.length / itemsPerPage);
+  
+    // Enable or disable previous and next buttons based on current page
+    prevPageButton.disabled = currentPage === 1;
+    nextPageButton.disabled = currentPage === totalPages;
+  
+    currPage.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+
+function renderTable(page) {
+    resultsTableBody.innerHTML = ""; // Clear existing table rows
+    console.log(finalItems);
+  
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+  
+    for (let i = startIndex; i < endIndex && i < finalItems.length; i++) {
+      const item = finalItems[i];
+      // Create a new table row and populate it with data
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${item.recclass}</td>
+        <td>${item["mass (g)"]}</td>
+        <td>${item.year}</td>
+        <td>${item.reclat}</td>
+        <td>${item.reclong}</td>
+      `
+      resultsTableBody.append(newRow);
+      
+
+    }
+  
+    currPage.textContent = `Page ${currentPage}`;
+    updatePagination();
+  }
+  
+  function prevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      renderTable(currentPage);
+    }
+  }
+  
+  function nextPage() {
+    const totalPages = Math.ceil(finalItems.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderTable(currentPage);
+    }
+  }
+  
+  prevPageButton.addEventListener("click", prevPage);
+  nextPageButton.addEventListener("click", nextPage);
+  
+
+
+
+/*========================TOGGLE FUNCTIONS==================*/
+
+const contentDisplay = document.querySelector(".content-display");
+const toggleMap = document.querySelector(".table-map-mode");
+toggleMap.addEventListener("click", toggleMapFunction);
+
+function toggleMapFunction() {
+    contentDisplay.classList.toggle("map-mode");
+}
+
+
+const footer = document.querySelector("footer");
+const toggleFooter = document.querySelector(".footer-up-down");
+toggleFooter.addEventListener("click", toggleFooterFunction);
+
+function toggleFooterFunction() {
+    footer.classList.toggle("footer-up");
+}
 
 
 
@@ -231,42 +344,22 @@ mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
 
-    layerGroup.clearLayers();
-    searchForm.reset();
+    console.log(contentDisplay.classList);
 
-    console.log(finalItems);
+    if (contentDisplay.classList.contains("map-mode")) {
+        console.log("Map mode is active");
+        // displayResultsMap();
+    } else {
+        console.log("Table mode is active");
+        displayResultsTable();
+    }
 
-    finalItems.forEach(item => {
-
-        const markerIcon = L.icon({
-            iconUrl: "assets/images/markerIcon.png",
-            iconSize: [30, 30],
-            iconAnchor: [50, 50],
-            popupAnchor: [-35, -55]
-        })
-        
-        marker = L.marker([item.reclat, item.reclong], {
-            icon: markerIcon
-        }).addTo(layerGroup);
     
-        const markerPopup = L.popup().setContent(`
-            <ul class="popup-list" style="list-style: none;">
-                <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-                <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-                <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-                <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-                <li><strong>Year of Impact:</strong> ${item.year}</li>
-                <li><strong>Latitude:</strong> ${item.reclat}</li>
-                <li><strong>Longitude:</strong> ${item.reclong}</li>
-            </ul>                       
-        `);
-
-        marker.bindPopup(markerPopup).addTo(map);
-
-    })
+    searchForm.reset();
+    
 
     setTimeout(function() {
-        finalItems = csvResult;
+        // finalItems = csvResult;
         Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
     console.log(searchParameters);
     }, 1000); 
@@ -274,13 +367,83 @@ function searchNow() {
 }
 
 
+function displayResultsTable() {
+
+    resultsTableBody.innerHTML = "";
+
+    currentPage = 1;
+
+    renderTable(currentPage);
+
+    // finalItems.forEach(item => {
+
+    //     let newRow = document.createElement('tr');
+    //     newRow.innerHTML = `
+    //     <td>${item.id}</td>
+    //     <td>${item.name}</td>
+    //     <td>${item.recclass}</td>
+    //     <td>${item["mass (g)"]}</td>
+    //     <td>${item.year}</td>
+    //     <td>${item.reclat}</td>
+    //     <td>${item.reclong}</td>
+    //     `
+    //     resultsTableBody.append(newRow);
+    
+    // })
+
+}
+
+
+// function displayResultsMap() {
+//     console.log(finalItems);
+//     console.log(layerGroup);
+
+//     layerGroup.clearLayers();
+
+
+
+//     finalItems.forEach(item => {
+
+//         const markerIcon = L.icon({
+//             iconUrl: "assets/images/markerIcon.png",
+//             iconSize: [30, 30],
+//             iconAnchor: [50, 50],
+//             popupAnchor: [-35, -55]
+//         })
+        
+//         marker = L.marker([item.reclat, item.reclong], {
+//             icon: markerIcon
+//         }).addTo(layerGroup);
+    
+//         const markerPopup = L.popup().setContent(`
+//             <ul class="popup-list" style="list-style: none;">
+//                 <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
+//                 <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
+//                 <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
+//                 <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
+//                 <li><strong>Year of Impact:</strong> ${item.year}</li>
+//                 <li><strong>Latitude:</strong> ${item.reclat}</li>
+//                 <li><strong>Longitude:</strong> ${item.reclong}</li>
+//             </ul>                       
+//         `);
+
+//         marker.bindPopup(markerPopup).addTo(map);
+
+//     })
+// }
+
+
 /*=====================RESET BUTTON==================*/
 const resetButton = document.querySelector(".reset-btn");
 resetButton.addEventListener("click", resetFunction);
 
 function resetFunction() {
-    layerGroup.clearLayers();
+    // layerGroup.clearLayers();
+    currentPage = 1;
+    finalItems = csvResult;
     searchForm.reset();
+    updatePagination();
+    renderTable(currentPage);
 }
 
 
@@ -300,4 +463,5 @@ EXTRA IDEAS
 */
 
 
-
+// need to setr up table and have 10 or more pages to avoid cluttering
+// bug - if user changes mind with param (eg wants 1900 instead of 2000), zero results

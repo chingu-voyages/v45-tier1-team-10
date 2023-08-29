@@ -24,34 +24,29 @@
 
         <button class="cta-btn">Start Exploring</button>
 
-        <table class="results-table">
-
-            <thead class="table-head">
-                <tr>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Record Class</th>
-                    <th>Mass</th>
-                    <th>Year</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Country</th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-
-        </table>
+        <div class="table-container">
+            <table class="results-table">
+                <thead class="table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Record Class</th>
+                        <th>Mass</th>
+                        <th>Year</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    
+                </tbody>
+            </table>
+            <div class="table-pagination">
+                <button class="prev-page">Prev</button>
+                <span class="curr-page">Page 1</span>
+                <button class="next-page">Next</button>
+            </div>
+        </div>
 
         <div id="map"></div>
 
@@ -61,11 +56,17 @@
 
         <section class="mode-toggles">
 
-            <div class="night-day-mode"></div>
+            <div class="night-day-mode">
+                <p class="night-day-goto">Day</p>
+                <div class="toggle-btn"></div>
+            </div>
 
-            <div class="footer-up-down">&#8964;</div>
+            <div class="footer-up-down">&#8963;</div>
             
-            <div class="table-map-mode"></div>
+            <div class="table-map-mode">
+                <p class="table-map-goto">Map</p>
+                <div class="toggle-btn"></div>
+            </div>
 
         </section>
 

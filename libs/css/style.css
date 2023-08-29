@@ -8,22 +8,70 @@
 .content-display #map {
     height: 300px;
     width: 800px;
+    display: none;
 }
+
+.content-display .table-container {
+  display: none;
+}
+
+.content-display .results-table {
+  margin: 1rem;
+}
+
+/* .map-mode #map {
+  display: block;
+} */
+
+.map-mode .table-container {
+  display: none;
+}
+
 
 /*=========================FOOTER========================*/
 footer {
   border-top: 2px solid;
   padding: 1rem;
   margin-top: 2rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  z-index: 5;
 }
 
-select {
+footer .mode-toggles {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+footer .footer-up-down {
+  font-size: 2rem;
+}
+
+footer select {
     font-size: 16px;
     width: max-content;
   }
 
-  option {
+footer  option {
     font-size: 14px;
     text-align: center;
   }
   
+  footer .search-parameters, footer .footer-buttons {
+    display: none;
+  }
+
+
+
+
+/*===================CLASSLIST: FOOTER-UP==================*/
+
+.footer-up .footer-up-down {
+  transform: rotate(180deg) translate(0, 1.5rem);
+}
+
+.footer-up .search-parameters, .footer-up .footer-buttons {
+    display: block;
+  }
