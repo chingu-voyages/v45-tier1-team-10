@@ -159,6 +159,7 @@ toggleFooter.addEventListener("click", toggleFooterFunction);
 
 function toggleFooterFunction() {
     footer.classList.toggle("footer-up");
+    resetFunction();
 }
 
 
@@ -343,6 +344,8 @@ const mainSearchButton = document.querySelector(".main-search-btn");
 mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
+
+    footer.classList.toggle("footer-up");
 
     console.log(contentDisplay.classList);
 
