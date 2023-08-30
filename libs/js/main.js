@@ -79,15 +79,15 @@ brandLogo.addEventListener("click", () => {
 
 /*=======================INSTALL MAP===================== */
 
-// let map = L.map("map").setView([41.505, -0.09], 2);
+let map = L.map("map").setView([41.505, -0.09], 2);
 
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 19,
-//     attribution: '© OpenStreetMap'
-// }).addTo(map);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+}).addTo(map);
 
-// let layerGroup = L.layerGroup().addTo(map);
-// let marker = null;
+let layerGroup = L.layerGroup().addTo(map);
+let marker = null;
 
 
 /*==================LOGIC FOR TABLE====================*/
@@ -170,6 +170,7 @@ toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
     contentDisplay.classList.toggle("map-mode");
+    map.invalidateSize();
 }
 
 

@@ -117,11 +117,11 @@ button#mybtn {
   margin: 1rem;
 }
 
-/* .map-mode #map {
+.map-mode #map {
   display: block;
-} */
+}
 
-.map-mode .table-container {
+.map-mode .results-table, .map-mode .table-pagination {
   display: none;
 }
 /*=========================FOOTER========================*/
