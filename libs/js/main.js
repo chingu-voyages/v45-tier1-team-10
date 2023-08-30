@@ -112,16 +112,17 @@ function updatePagination() {
   }
 
 function renderTable(page) {
-    resultsTableBody.innerHTML = ""; // Clear existing table rows
-    console.log(finalItems);
+    resultsTableBody.innerHTML = ""; 
+    // console.log(finalItems);
   
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
   
     for (let i = startIndex; i < endIndex && i < finalItems.length; i++) {
+        
       const item = finalItems[i];
-      // Create a new table row and populate it with data
       const newRow = document.createElement("tr");
+
       newRow.innerHTML = `
         <td>${item.id}</td>
         <td>${item.name}</td>
@@ -185,6 +186,13 @@ function toggleFooterFunction() {
 
  /*====================SEARCH FUNCTIONS===================*/
 
+let mainSearchInput = null;
+const mainSearch = document.querySelector(".main-search");
+let nameChoice = null;
+const nameInput = document.querySelector(".name-select");
+const centurySelect = document.querySelector(".century-select");
+const massSelect = document.querySelector(".mass-select");
+
  const searchParameters = {
     openQuery: null,
     nameQuery: null,
@@ -194,31 +202,34 @@ function toggleFooterFunction() {
  
 
 /*MAIN SEARCH BAR*/
-let mainSearchInput = null;
-const mainSearch = document.querySelector(".main-search");
 
 mainSearch.addEventListener("click", clearNameInput);
 function clearNameInput() {
     if(nameInput.value.length > 0) {
-        nameInput.value = "";
         finalItems = csvResult;
+        nameInput.value = "";
         searchParameters.nameQuery = null;
-        console.log(searchParameters);
+        centurySelect.value = "";
+        searchParameters.centuryQuery = null;
+        massSelect.value = "";
+        searchParameters.massQuery = null;
+    }
+
+    if(searchParameters.openQuery != null) {
+        finalItems = csvResult;
+        centurySelect.value = "";
+        searchParameters.centuryQuery = null;
+        massSelect.value = "";
+        searchParameters.massQuery = null;
     }
 }
 
-mainSearch.addEventListener("change", searchBar);
-function searchBar() {
-    
-    mainSearchInput = document.querySelector(".main-search").value.trim().toLowerCase();
-    searchParameters.openQuery = mainSearchInput;
-    textInputFunction();
-    
-}
+mainSearch.addEventListener("change", textInputFunction);
 
 function textInputFunction() {
 
-    console.log(mainSearchInput);
+    mainSearchInput = document.querySelector(".main-search").value.trim().toLowerCase();
+    searchParameters.openQuery = mainSearchInput;
 
     if(finalItems.length < 38115) {
         finalItems = finalItems.filter(item => {
@@ -238,17 +249,27 @@ function textInputFunction() {
 
 
 /*NAME SEARCH INPUT*/
-let nameChoice = null;
-const nameInput = document.querySelector(".name-select");
 
 nameInput.addEventListener("change", nameInputFunction);
 
 function nameInputFunction() {
 
     if(mainSearch.value.length > 0) {
+        finalItems = csvResult;
         mainSearch.value = "";
         searchParameters.openQuery = null;
+        centurySelect.value = "";
+        searchParameters.centuryQuery = null;
+        massSelect.value = "";
+        searchParameters.massQuery = null;
+    }
+
+    if(searchParameters.nameQuery != null) {
         finalItems = csvResult;
+        centurySelect.value = "";
+        searchParameters.centuryQuery = null;
+        massSelect.value = "";
+        searchParameters.massQuery = null;
     }
 
     nameChoice = Array.from(nameInput.value);
@@ -257,7 +278,6 @@ function nameInputFunction() {
     nameFilter();
 
 }
-
 
 function nameFilter() {
 
@@ -284,20 +304,26 @@ function nameFilter() {
 
 
 /*CENTURY SEARCH INPUT*/
-const centurySelect = document.querySelector(".century-select");
 
 centurySelect.addEventListener("change", centuryInputFunction);
 
 function centuryInputFunction() {
 
-    console.log(centurySelect.value);
+    if(searchParameters.centuryQuery != null) {
+        finalItems = csvResult;
+        mainSearch.value = "";
+        searchParameters.openQuery = null;
+        nameInput.value = "";
+        searchParameters.nameQuery = null;
+        massSelect.value = "";
+        searchParameters.massQuery = null;
+    }
 
     searchParameters.centuryQuery = centurySelect.value;
 
     centuryFilter();
 
 } 
-
 
 function centuryFilter() {
 
@@ -320,11 +346,22 @@ function centuryFilter() {
     console.log(finalItems.length);
 }
 
+
 /*MASS SEARCH INPUT*/
-const massSelect = document.querySelector(".mass-select");
+
 massSelect.addEventListener("change", massInputFunction);
 
 function massInputFunction() {
+
+    if(searchParameters.massQuery != null) {
+        finalItems = csvResult;
+        mainSearch.value = "";
+        searchParameters.openQuery = null;
+        nameInput.value = "";
+        searchParameters.nameQuery = null;
+        centurySelect.value = "";
+        searchParameters.centuryQuery = null;
+    }
 
     searchParameters.massQuery = massSelect.value;
 
@@ -353,8 +390,6 @@ function massFilter() {
     }
     console.log(finalItems.length);
 }
-
-
 
 
 /*SEARCH BUTTON*/
