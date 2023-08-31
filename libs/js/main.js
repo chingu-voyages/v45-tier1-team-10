@@ -452,6 +452,7 @@ function displayResultsMap() {
     console.log(layerGroup);
 
     layerGroup.clearLayers();
+    map.setView([41.505, -0.09], 2);
 
 
 
