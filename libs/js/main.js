@@ -169,8 +169,17 @@ const toggleMap = document.querySelector(".table-map-mode");
 toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
-    contentDisplay.classList.toggle("map-mode");
-    map.invalidateSize();
+    console.log(contentDisplay.classList);
+    console.log(finalItems.length);
+
+    if(finalItems.length > 2000) {
+        alert("Make search smaller please, too much data!");
+    } else {
+        contentDisplay.classList.toggle("map-mode");
+        displayResultsMap();
+        displayResultsTable();
+        map.invalidateSize();
+    }
 }
 
 
@@ -202,7 +211,7 @@ const massSelect = document.querySelector(".mass-select");
  }
  
 
-/*MAIN SEARCH BAR*/
+/*MAIN SEARCH INPUT*/
 
 mainSearch.addEventListener("click", clearNameInput);
 function clearNameInput() {
@@ -394,6 +403,7 @@ function massFilter() {
 
 
 /*SEARCH BUTTON*/
+
 const searchForm = document.querySelector(".search-form");
 const mainSearchButton = document.querySelector(".main-search-btn");
 mainSearchButton.addEventListener("click", searchNow)
@@ -402,11 +412,12 @@ function searchNow() {
 
     footer.classList.toggle("footer-up");
 
-    console.log(contentDisplay.classList);
+    // displayResultsMap();
+    // displayResultsTable();
 
     if (contentDisplay.classList.contains("map-mode")) {
         console.log("Map mode is active");
-        // displayResultsMap();
+        displayResultsMap();
     } else {
         console.log("Table mode is active");
         displayResultsTable();
@@ -433,62 +444,46 @@ function displayResultsTable() {
 
     renderTable(currentPage);
 
-    // finalItems.forEach(item => {
-
-    //     let newRow = document.createElement('tr');
-    //     newRow.innerHTML = `
-    //     <td>${item.id}</td>
-    //     <td>${item.name}</td>
-    //     <td>${item.recclass}</td>
-    //     <td>${item["mass (g)"]}</td>
-    //     <td>${item.year}</td>
-    //     <td>${item.reclat}</td>
-    //     <td>${item.reclong}</td>
-    //     `
-    //     resultsTableBody.append(newRow);
-    
-    // })
-
 }
 
 
-// function displayResultsMap() {
-//     console.log(finalItems);
-//     console.log(layerGroup);
+function displayResultsMap() {
+    console.log(finalItems);
+    console.log(layerGroup);
 
-//     layerGroup.clearLayers();
+    layerGroup.clearLayers();
 
 
 
-//     finalItems.forEach(item => {
+    finalItems.forEach(item => {
 
-//         const markerIcon = L.icon({
-//             iconUrl: "assets/images/markerIcon.png",
-//             iconSize: [30, 30],
-//             iconAnchor: [50, 50],
-//             popupAnchor: [-35, -55]
-//         })
+        const markerIcon = L.icon({
+            iconUrl: "assets/images/markerIcon.png",
+            iconSize: [30, 30],
+            iconAnchor: [50, 50],
+            popupAnchor: [-35, -55]
+        })
         
-//         marker = L.marker([item.reclat, item.reclong], {
-//             icon: markerIcon
-//         }).addTo(layerGroup);
+        marker = L.marker([item.reclat, item.reclong], {
+            icon: markerIcon
+        }).addTo(layerGroup);
     
-//         const markerPopup = L.popup().setContent(`
-//             <ul class="popup-list" style="list-style: none;">
-//                 <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-//                 <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-//                 <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-//                 <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-//                 <li><strong>Year of Impact:</strong> ${item.year}</li>
-//                 <li><strong>Latitude:</strong> ${item.reclat}</li>
-//                 <li><strong>Longitude:</strong> ${item.reclong}</li>
-//             </ul>                       
-//         `);
+        const markerPopup = L.popup().setContent(`
+            <ul class="popup-list" style="list-style: none;">
+                <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
+                <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
+                <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
+                <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
+                <li><strong>Year of Impact:</strong> ${item.year}</li>
+                <li><strong>Latitude:</strong> ${item.reclat}</li>
+                <li><strong>Longitude:</strong> ${item.reclong}</li>
+            </ul>                       
+        `);
 
-//         marker.bindPopup(markerPopup).addTo(map);
+        marker.bindPopup(markerPopup).addTo(map);
 
-//     })
-// }
+    })
+}
 
 
 /*=====================RESET BUTTON==================*/
@@ -496,7 +491,7 @@ const resetButton = document.querySelector(".reset-btn");
 resetButton.addEventListener("click", resetFunction);
 
 function resetFunction() {
-    // layerGroup.clearLayers();
+    layerGroup.clearLayers();
     currentPage = 1;
     finalItems = csvResult;
     searchForm.reset();
