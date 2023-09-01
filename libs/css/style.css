@@ -60,9 +60,9 @@ body {
   display: flex;
   align-items: center;
 }
-button#mybtn {
+button#mybtn, #tableMapBtn {
   position: relative;
-  width: 120px;
+  width: 130px;
   padding: 10px 20px 10px 5px;
   background-color: black;
   color: #fff;
@@ -70,9 +70,9 @@ button#mybtn {
   border: 1.5px solid #fff;
   border-radius: 10px;
   cursor: pointer;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
-#btn-circle {
+.btn-circle {
   /* display: inline-block; */
   float: left;
   position: absolute;
@@ -140,6 +140,8 @@ footer {
 footer .mode-toggles {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 footer .footer-up-down {
@@ -160,13 +162,26 @@ footer  option {
     display: none;
   }
 
+#footerBtn {
+    position: relative;
+    width: 30px;
+    height: 50px;
+    padding: 10px 20px 10px 5px;
+    background-color: black;
+    color: #fff;
+    font-weight: bold;
+    font-size: 2rem;
+    border: 1.5px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
 
 
 /*===================CLASSLIST: FOOTER-UP==================*/
 
 .footer-up .footer-up-down {
-  transform: rotate(180deg) translate(0, 1.5rem);
+  transform: rotate(180deg);
 }
 
 .footer-up .search-parameters, .footer-up .footer-buttons {
