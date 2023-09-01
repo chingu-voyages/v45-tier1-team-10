@@ -14,6 +14,19 @@ function daymode() {
     
 }
 
+function mapmode() {
+    
+    console.log(contentDisplay.classList);
+
+    const tableMapBtn = document.getElementById("tableMapBtn");
+
+    if(!contentDisplay.classList.contains("map-mode")) {
+        tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
+    } else {
+        tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
+    }
+}
+
 
 
 
