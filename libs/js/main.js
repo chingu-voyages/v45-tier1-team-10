@@ -73,12 +73,19 @@ window.onload = function() {
 const brandLogo = document.querySelector(".project-title");
 const openingInfo = document.querySelector(".opening-info");
 const ctaButton = document.querySelector(".cta-btn");
+const summaryMetrics = document.querySelector(".summary-metrics");
+const summaryMetricsBtn = document.querySelector(".summary-metrics-btn");
+const leafletMap = document.querySelector(".leaflet-map");
+let sumMetActive = false;
+const contentDisplay = document.querySelector(".content-display");
+
 
 ctaButton.addEventListener("click", () => {
     ctaButton.style.display = "none";
     openingInfo.style.display = "none";
     resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
+    summaryMetricsBtn.style.display = "block";
       // Initial render
     updatePagination();
     renderTable(currentPage);
@@ -88,6 +95,36 @@ brandLogo.addEventListener("click", () => {
     ctaButton.style.display = "block";
     openingInfo.style.display = "block";
 })
+
+summaryMetricsBtn.addEventListener("click", () => {
+
+    summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
+
+    sumMetActive = true;
+
+    if(contentDisplay.classList.contains("map-mode")) {
+        leafletMap.style.display = "none";
+        summaryMetrics.style.display = "block";
+        console.log("oh yes");
+    } else {
+        resultsTableContainer.style.display = "none";
+        summaryMetrics.style.display = "block";
+        console.log("oh no");
+    }
+})
+
+
+// summaryMetrics.addEventListener("click", () => {
+
+//     if(contentDisplay.classList.contains("map-mode")) {
+//         leafletMap.style.display = "block";
+//         summaryMetrics.style.display = "none";
+//     } else {
+//         resultsTableContainer.style.display = "block";
+//         summaryMetrics.style.display = "none";
+//     }
+    
+// })
 
 
 /*=======================INSTALL MAP===================== */
@@ -135,7 +172,7 @@ function renderTable(page) {
 
         alert("Apologies: No data to display, please refine your search.")
         resetFunction();
-        
+
     } else {
         
         for (let i = startIndex; i < endIndex && i < finalItems.length; i++) {
@@ -186,7 +223,6 @@ function renderTable(page) {
 
 /*========================TOGGLE FUNCTIONS==================*/
 
-const contentDisplay = document.querySelector(".content-display");
 const toggleMap = document.querySelector(".table-map-mode");
 toggleMap.addEventListener("click", toggleMapFunction);
 
@@ -539,6 +575,9 @@ githubButton.addEventListener("click", githubFunction);
 function githubFunction() {
     window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
 }
+
+
+
 
 
 
