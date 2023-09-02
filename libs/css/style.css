@@ -101,12 +101,18 @@ button#mybtn, #tableMapBtn {
 .content-display .results-table {
   border: 2px solid;
   margin: 2rem;
+  height: 300px;
+  width: 800px;
+  border-radius: 5px;
 }
 
 .content-display #map {
     height: 300px;
     width: 800px;
     display: none;
+    position: relative;
+    bottom: 2.3rem;
+    border-radius: 5px;
 }
 
 .content-display .table-container {
