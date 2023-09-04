@@ -73,12 +73,19 @@ window.onload = function() {
 const brandLogo = document.querySelector(".project-title");
 const openingInfo = document.querySelector(".opening-info");
 const ctaButton = document.querySelector(".cta-btn");
+const summaryMetrics = document.querySelector(".summary-metrics");
+const summaryMetricsBtn = document.querySelector(".summary-metrics-btn");
+const leafletMap = document.querySelector(".leaflet-map");
+let sumMetActive = false;
+const contentDisplay = document.querySelector(".content-display");
+
 
 ctaButton.addEventListener("click", () => {
     ctaButton.style.display = "none";
     openingInfo.style.display = "none";
     resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
+    summaryMetricsBtn.style.display = "block";
       // Initial render
     updatePagination();
     renderTable(currentPage);
@@ -88,6 +95,36 @@ brandLogo.addEventListener("click", () => {
     ctaButton.style.display = "block";
     openingInfo.style.display = "block";
 })
+
+summaryMetricsBtn.addEventListener("click", () => {
+
+    summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
+
+    sumMetActive = true;
+
+    if(contentDisplay.classList.contains("map-mode")) {
+        leafletMap.style.display = "none";
+        summaryMetrics.style.display = "block";
+        console.log("oh yes");
+    } else {
+        resultsTableContainer.style.display = "none";
+        summaryMetrics.style.display = "block";
+        console.log("oh no");
+    }
+})
+
+
+// summaryMetrics.addEventListener("click", () => {
+
+//     if(contentDisplay.classList.contains("map-mode")) {
+//         leafletMap.style.display = "block";
+//         summaryMetrics.style.display = "none";
+//     } else {
+//         resultsTableContainer.style.display = "block";
+//         summaryMetrics.style.display = "none";
+//     }
+    
+// })
 
 
 /*=======================INSTALL MAP===================== */
@@ -130,23 +167,32 @@ function renderTable(page) {
   
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-  
-    for (let i = startIndex; i < endIndex && i < finalItems.length; i++) {
-        
-      const item = finalItems[i];
-      const newRow = document.createElement("tr");
 
-      newRow.innerHTML = `
-        <td>${item.id}</td>
-        <td>${item.name}</td>
-        <td>${item.recclass}</td>
-        <td>${item["mass (g)"]}</td>
-        <td>${item.year}</td>
-        <td>${item.reclat}</td>
-        <td>${item.reclong}</td>
-      `
-      resultsTableBody.append(newRow);
-      
+    if(finalItems.length < 1) {
+
+        alert("Apologies: No data to display, please refine your search.")
+        resetFunction();
+
+    } else {
+        
+        for (let i = startIndex; i < endIndex && i < finalItems.length; i++) {
+            
+        const item = finalItems[i];
+        const newRow = document.createElement("tr");
+    
+        newRow.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.recclass}</td>
+            <td>${item["mass (g)"]}</td>
+            <td>${item.year}</td>
+            <td>${item.reclat}</td>
+            <td>${item.reclong}</td>
+        `
+        resultsTableBody.append(newRow);
+        
+    
+        }
 
     }
   
@@ -177,7 +223,6 @@ function renderTable(page) {
 
 /*========================TOGGLE FUNCTIONS==================*/
 
-const contentDisplay = document.querySelector(".content-display");
 const toggleMap = document.querySelector(".table-map-mode");
 toggleMap.addEventListener("click", toggleMapFunction);
 
@@ -186,12 +231,16 @@ function toggleMapFunction() {
     console.log(finalItems.length);
 
     if(finalItems.length > 2000) {
-        alert("Make search smaller please, too much data!");
+
+        alert("Apologies: There is too much data to display. Please refine your search.");
+
     } else {
+
         contentDisplay.classList.toggle("map-mode");
         displayResultsMap();
         displayResultsTable();
         map.invalidateSize();
+
     }
 }
 
@@ -425,9 +474,6 @@ function searchNow() {
 
     footer.classList.toggle("footer-up");
 
-    // displayResultsMap();
-    // displayResultsTable();
-
     if (contentDisplay.classList.contains("map-mode")) {
         console.log("Map mode is active");
         displayResultsMap();
@@ -467,36 +513,44 @@ function displayResultsMap() {
     layerGroup.clearLayers();
     map.setView([41.505, -0.09], 2);
 
+    if(finalItems.length < 1) {
 
+        alert("Apologies: No data to display, please refine your search.")
+        resetFunction();
 
-    finalItems.forEach(item => {
+    } else {
 
-        const markerIcon = L.icon({
-            iconUrl: "assets/images/markerIcon.png",
-            iconSize: [30, 30],
-            iconAnchor: [50, 50],
-            popupAnchor: [-35, -55]
-        })
-        
-        marker = L.marker([item.reclat, item.reclong], {
-            icon: markerIcon
-        }).addTo(layerGroup);
+        finalItems.forEach(item => {
     
-        const markerPopup = L.popup().setContent(`
-            <ul class="popup-list" style="list-style: none;">
-                <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-                <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-                <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-                <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-                <li><strong>Year of Impact:</strong> ${item.year}</li>
-                <li><strong>Latitude:</strong> ${item.reclat}</li>
-                <li><strong>Longitude:</strong> ${item.reclong}</li>
-            </ul>                       
-        `);
+            const markerIcon = L.icon({
+                iconUrl: "assets/images/markerIcon.png",
+                iconSize: [30, 30],
+                iconAnchor: [50, 50],
+                popupAnchor: [-35, -55]
+            })
+            
+            marker = L.marker([item.reclat, item.reclong], {
+                icon: markerIcon
+            }).addTo(layerGroup);
+        
+            const markerPopup = L.popup().setContent(`
+                <ul class="popup-list" style="list-style: none;">
+                    <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
+                    <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
+                    <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
+                    <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
+                    <li><strong>Year of Impact:</strong> ${item.year}</li>
+                    <li><strong>Latitude:</strong> ${item.reclat}</li>
+                    <li><strong>Longitude:</strong> ${item.reclong}</li>
+                </ul>                       
+            `);
+    
+            marker.bindPopup(markerPopup).addTo(map);
+    
+        })
 
-        marker.bindPopup(markerPopup).addTo(map);
+    }
 
-    })
 }
 
 
@@ -521,6 +575,9 @@ githubButton.addEventListener("click", githubFunction);
 function githubFunction() {
     window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
 }
+
+
+
 
 
 
