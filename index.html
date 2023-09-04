@@ -65,6 +65,8 @@
 
             <p class="avg-mass">Average Mass: </p>
 
+            <canvas id="histogram" width="200" height="100"></canvas>
+
             <p>Click inside this box to close.</p>
 
         </div>
@@ -88,10 +90,10 @@
             </div>
             
             <div class="table-map-mode">
-                <button id="tableMapBtn" onclick="mapmode()">
+                <button id="tableMapBtn">
                     MAP MODE <span class="btn-circle"></span>
                 </button>
-            </div>
+            </div> 
 
         </section>
 
@@ -172,6 +174,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
 
     <script src="libs/js/main.js"></script>
 </body>
