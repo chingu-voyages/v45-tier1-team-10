@@ -67,9 +67,13 @@ ctaButton.addEventListener("click", () => {
 
 /*================SUMMARY METRICS COMPONENT================*/
 
+const ctx = document.getElementById('histogram').getContext('2d');
+let chartYears = null;
+
 summaryMetricsBtn.addEventListener("click", () => {
 
-    console.log(finalItems);
+    chartLabels();
+    strikesByYearCalc();
 
     summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
 
@@ -89,7 +93,6 @@ summaryMetricsBtn.addEventListener("click", () => {
     }
 })
 
-
 const massCalculation = () => {
     let totalMass = 0;
     finalItems.forEach(item => {
@@ -98,41 +101,69 @@ const massCalculation = () => {
     return (totalMass / finalItems.length).toFixed(3);
 }
 
-const ctx = document.getElementById('histogram').getContext('2d');
+function chartLabels() {
+    
+    const years = finalItems.map(item => item.year);
 
-const chart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [0, 1, 2, 3, 4],
-    datasets: [{
-      label: 'Strikes by Year',
-      data: [19, 28, 20, 16],
-      backgroundColor: 'maroon',
-    }]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        display: false,
-        barPercentage: 1.3,
-        ticks: {
-          max: 3,
-        }
-      }, {
-        display: true,
-        ticks: {
-          autoSkip: false,
-          max: 4,
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+
+    const yearRange = maxYear - minYear;
+
+    const intervalSize = Math.floor(yearRange / 4);
+
+    const chartYears = Array.from({ length: 4 }, (_, index) => minYear + index * intervalSize);
+
+    chartYears.push(maxYear);
+
+    chartFunc(chartYears);
+    strikesByYearCalc(chartYears);
+}
+
+function strikesByYearCalc(years) {
+    const newStuff = years.map(item => item * 3);
+    chartFunc(newStuff);
+} // not sure if this will work. Google this: "send arguments to a function from different sources"
+
+function chartFunc(...args) {
+
+    console.log(args);
+
+    // const chart = new Chart(ctx, {
+    //   type: 'line',
+    //   data: {
+    //     labels: [yearLabels[0], yearLabels[1], yearLabels[2], yearLabels[3], yearLabels[4]],
+    //     datasets: [{
+    //       label: 'Strikes by Year',
+    //       data: [1000, 2000, 290, 300, 1300],
+    //       backgroundColor: ["#FFDC73"],
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
+    //       xAxes: [{
+    //         display: false,
+    //         barPercentage: 1.3,
+    //         ticks: {
+    //           max: 3,
+    //         }
+    //       }, {
+    //         display: true,
+    //         ticks: {
+    //           autoSkip: false,
+    //           max: 4,
+    //         }
+    //       }],
+    //       yAxes: [{
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
+
+}
 
 
 summaryMetrics.addEventListener("click", () => {
@@ -625,10 +656,6 @@ function githubFunction() {
 
 
 
-/*  
-EXTRA IDEAS 
-1. Limit results to 50/100, etc
-*/
 
 
 // small bug - if summary metrics is active and user clicks map mode, problems occur
