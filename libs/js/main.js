@@ -1,35 +1,3 @@
-/*====================NIGHT-DAY-MODE=================*/
-function daymode() {
-    let setTheme = document.body;
-
-    setTheme.classList.toggle("day-mode");
-    
-    const button = document.getElementById("mybtn");
-    
-    if (setTheme.classList.contains("day-mode")) {
-        button.textContent = "NIGHT MODE";
-    } else {
-        button.textContent = "DAY MODE";
-    }
-    
-}
-
-function mapmode() {
-    
-    console.log(contentDisplay.classList);
-
-    const tableMapBtn = document.getElementById("tableMapBtn");
-
-    if(!contentDisplay.classList.contains("map-mode")) {
-        tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
-    } else {
-        tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
-    }
-}
-
-
-
-
 /*======================WINDOW ONLOAD===================*/
 let csvResult = null;
 let finalItems = null;
@@ -91,14 +59,21 @@ ctaButton.addEventListener("click", () => {
     renderTable(currentPage);
 })
 
-brandLogo.addEventListener("click", () => {
-    ctaButton.style.display = "block";
-    openingInfo.style.display = "block";
-})
+// brandLogo.addEventListener("click", () => {
+//     ctaButton.style.display = "block";
+//     openingInfo.style.display = "block";
+// })
+
+
+/*================SUMMARY METRICS COMPONENT================*/
 
 summaryMetricsBtn.addEventListener("click", () => {
 
+    console.log(finalItems);
+
     summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
+
+    summaryMetrics.children[2].innerHTML = `Average Mass: ${massCalculation()} grams`
 
     sumMetActive = true;
 
@@ -107,6 +82,7 @@ summaryMetricsBtn.addEventListener("click", () => {
         summaryMetrics.style.display = "block";
         console.log("oh yes");
     } else {
+        
         resultsTableContainer.style.display = "none";
         summaryMetrics.style.display = "block";
         console.log("oh no");
@@ -114,17 +90,62 @@ summaryMetricsBtn.addEventListener("click", () => {
 })
 
 
-// summaryMetrics.addEventListener("click", () => {
+const massCalculation = () => {
+    let totalMass = 0;
+    finalItems.forEach(item => {
+        totalMass += item["mass (g)"];
+    })
+    return (totalMass / finalItems.length).toFixed(3);
+}
 
-//     if(contentDisplay.classList.contains("map-mode")) {
-//         leafletMap.style.display = "block";
-//         summaryMetrics.style.display = "none";
-//     } else {
-//         resultsTableContainer.style.display = "block";
-//         summaryMetrics.style.display = "none";
-//     }
+const ctx = document.getElementById('histogram').getContext('2d');
+
+const chart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: [0, 1, 2, 3, 4],
+    datasets: [{
+      label: 'Strikes by Year',
+      data: [19, 28, 20, 16],
+      backgroundColor: 'maroon',
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        display: false,
+        barPercentage: 1.3,
+        ticks: {
+          max: 3,
+        }
+      }, {
+        display: true,
+        ticks: {
+          autoSkip: false,
+          max: 4,
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+
+summaryMetrics.addEventListener("click", () => {
+
+    if(contentDisplay.classList.contains("map-mode")) {
+        leafletMap.style.display = "block";
+        summaryMetrics.style.display = "none";
+    } else {
+        resultsTableContainer.style.display = "block";
+        summaryMetrics.style.display = "none";
+    }
     
-// })
+})
 
 
 /*=======================INSTALL MAP===================== */
@@ -191,7 +212,6 @@ function renderTable(page) {
         `
         resultsTableBody.append(newRow);
         
-    
         }
 
     }
@@ -223,18 +243,25 @@ function renderTable(page) {
 
 /*========================TOGGLE FUNCTIONS==================*/
 
-const toggleMap = document.querySelector(".table-map-mode");
+const toggleMap = document.querySelector("#tableMapBtn");
 toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
-    console.log(contentDisplay.classList);
-    console.log(finalItems.length);
 
     if(finalItems.length > 2000) {
 
         alert("Apologies: There is too much data to display. Please refine your search.");
+        tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
 
     } else {
+
+        if(!contentDisplay.classList.contains("map-mode")) {
+            tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
+            summaryMetricsBtn.style.display = "none";
+        } else {
+            tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
+            summaryMetricsBtn.style.display = "block";
+        }
 
         contentDisplay.classList.toggle("map-mode");
         displayResultsMap();
@@ -243,6 +270,7 @@ function toggleMapFunction() {
 
     }
 }
+
 
 
 const footer = document.querySelector("footer");
@@ -254,6 +282,22 @@ function toggleFooterFunction() {
     resetFunction();
 }
 
+
+/*====================NIGHT-DAY-MODE=================*/
+function daymode() {
+    let setTheme = document.body;
+
+    setTheme.classList.toggle("day-mode");
+    
+    const button = document.getElementById("mybtn");
+    
+    if (setTheme.classList.contains("day-mode")) {
+        button.textContent = "NIGHT MODE";
+    } else {
+        button.textContent = "DAY MODE";
+    }
+    
+}
 
 
  /*====================SEARCH FUNCTIONS===================*/
@@ -587,4 +631,5 @@ EXTRA IDEAS
 */
 
 
-// bug - if user changes mind with param (eg wants 1900 instead of 2000), zero results
+// small bug - if summary metrics is active and user clicks map mode, problems occur
+// also work on charts tomoz - line 100ish
