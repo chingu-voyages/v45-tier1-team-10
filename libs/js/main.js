@@ -110,17 +110,33 @@ function chartLabels() {
 
     chartYears.push(maxYear);
 
-    chartFunc(chartYears);
+    // chartFunc(chartYears);
     strikesByYearCalc(chartYears);
 }
 
 function strikesByYearCalc(years) {
-    // console.log(finalItems);
+    const strikesByYear = Array(years.length).fill(0);
+
+    finalItems.forEach(item => {
+        const yearIndex = years.indexOf(item.year);
+        if (yearIndex !== -1) {
+            strikesByYear[yearIndex]++;
+        }
+    });
+
+    // Now, you have an array strikesByYear where each element represents the strikes for a year.
+    // You can use this data to populate your chart.
+    
+    chartFunc(years, strikesByYear);
+}
+
+// function strikesByYearCalc(years) {
+//     console.log(finalItems);
 
 
 
-    //save into array defined globally, then try accessing in chartFunc()
-} 
+//     save into array defined globally, then try accessing in chartFunc()
+// } 
 
 const massCalculation = () => {
     let totalMass = 0;
@@ -130,15 +146,18 @@ const massCalculation = () => {
     return (totalMass / finalItems.length).toFixed(3);
 }
 
-function chartFunc(yearLabels) {
+function chartFunc(years, strikesByYear) {
+
+    console.log(years);
+    console.log(strikesByYear);
 
     const chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: [yearLabels[0], yearLabels[1], yearLabels[2], yearLabels[3], yearLabels[4], yearLabels[5], yearLabels[6], yearLabels[7], yearLabels[8], yearLabels[9]],
+        labels: years,
         datasets: [{
           label: 'Strikes by Year',
-          data: [5, 10, 22, 23, 11, 30, 43, 2, 9, 33],
+          data: strikesByYear,
           backgroundColor: ["#FFDC73"],
         }]
       },
