@@ -69,11 +69,13 @@ ctaButton.addEventListener("click", () => {
 
 const ctx = document.getElementById('histogram').getContext('2d');
 let chartYears = null;
+let yearsArr = null;
+let strikesArr = null;
 
 summaryMetricsBtn.addEventListener("click", () => {
 
     chartLabels();
-    strikesByYearCalc();
+    // strikesByYearCalc();
 
     summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
 
@@ -93,14 +95,6 @@ summaryMetricsBtn.addEventListener("click", () => {
     }
 })
 
-const massCalculation = () => {
-    let totalMass = 0;
-    finalItems.forEach(item => {
-        totalMass += item["mass (g)"];
-    })
-    return (totalMass / finalItems.length).toFixed(3);
-}
-
 function chartLabels() {
     
     const years = finalItems.map(item => item.year);
@@ -110,9 +104,9 @@ function chartLabels() {
 
     const yearRange = maxYear - minYear;
 
-    const intervalSize = Math.floor(yearRange / 4);
+    const intervalSize = Math.floor(yearRange / 9);
 
-    const chartYears = Array.from({ length: 4 }, (_, index) => minYear + index * intervalSize);
+    const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
 
     chartYears.push(maxYear);
 
@@ -121,47 +115,58 @@ function chartLabels() {
 }
 
 function strikesByYearCalc(years) {
-    const newStuff = years.map(item => item * 3);
-    chartFunc(newStuff);
-} // not sure if this will work. Google this: "send arguments to a function from different sources"
+    // console.log(finalItems);
 
-function chartFunc(...args) {
 
-    console.log(args);
 
-    // const chart = new Chart(ctx, {
-    //   type: 'line',
-    //   data: {
-    //     labels: [yearLabels[0], yearLabels[1], yearLabels[2], yearLabels[3], yearLabels[4]],
-    //     datasets: [{
-    //       label: 'Strikes by Year',
-    //       data: [1000, 2000, 290, 300, 1300],
-    //       backgroundColor: ["#FFDC73"],
-    //     }]
-    //   },
-    //   options: {
-    //     scales: {
-    //       xAxes: [{
-    //         display: false,
-    //         barPercentage: 1.3,
-    //         ticks: {
-    //           max: 3,
-    //         }
-    //       }, {
-    //         display: true,
-    //         ticks: {
-    //           autoSkip: false,
-    //           max: 4,
-    //         }
-    //       }],
-    //       yAxes: [{
-    //         ticks: {
-    //           beginAtZero: true
-    //         }
-    //       }]
-    //     }
-    //   }
-    // });
+    //save into array defined globally, then try accessing in chartFunc()
+} 
+
+const massCalculation = () => {
+    let totalMass = 0;
+    finalItems.forEach(item => {
+        totalMass += item["mass (g)"];
+    })
+    return (totalMass / finalItems.length).toFixed(3);
+}
+
+function chartFunc(yearLabels) {
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [yearLabels[0], yearLabels[1], yearLabels[2], yearLabels[3], yearLabels[4], yearLabels[5], yearLabels[6], yearLabels[7], yearLabels[8], yearLabels[9]],
+        datasets: [{
+          label: 'Strikes by Year',
+          data: [5, 10, 22, 23, 11, 30, 43, 2, 9, 33],
+          backgroundColor: ["#FFDC73"],
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            display: false,
+            barPercentage: 1.3,
+            ticks: {
+              max: 3,
+              maxRotation: 90,
+              minRotation: 90,
+            }
+          }, {
+            display: true,
+            ticks: {
+              autoSkip: false,
+              max: 4,
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
 
 }
 
