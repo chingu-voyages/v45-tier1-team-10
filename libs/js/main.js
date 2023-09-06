@@ -67,9 +67,15 @@ ctaButton.addEventListener("click", () => {
 
 /*================SUMMARY METRICS COMPONENT================*/
 
+const ctx = document.getElementById('histogram').getContext('2d');
+let chartYears = null;
+let yearsArr = null;
+let strikesArr = null;
+
 summaryMetricsBtn.addEventListener("click", () => {
 
-    console.log(finalItems);
+    chartLabels();
+    // strikesByYearCalc();
 
     summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
 
@@ -89,6 +95,48 @@ summaryMetricsBtn.addEventListener("click", () => {
     }
 })
 
+function chartLabels() {
+    
+    const years = finalItems.map(item => item.year);
+
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+
+    const yearRange = maxYear - minYear;
+
+    const intervalSize = Math.floor(yearRange / 9);
+
+    const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
+
+    chartYears.push(maxYear);
+
+    // chartFunc(chartYears);
+    strikesByYearCalc(chartYears);
+}
+
+function strikesByYearCalc(years) {
+    const strikesByYear = Array(years.length).fill(0);
+
+    finalItems.forEach(item => {
+        const yearIndex = years.indexOf(item.year);
+        if (yearIndex !== -1) {
+            strikesByYear[yearIndex]++;
+        }
+    });
+
+    // Now, you have an array strikesByYear where each element represents the strikes for a year.
+    // You can use this data to populate your chart.
+    
+    chartFunc(years, strikesByYear);
+}
+
+// function strikesByYearCalc(years) {
+//     console.log(finalItems);
+
+
+
+//     save into array defined globally, then try accessing in chartFunc()
+// } 
 
 const massCalculation = () => {
     let totalMass = 0;
@@ -98,41 +146,48 @@ const massCalculation = () => {
     return (totalMass / finalItems.length).toFixed(3);
 }
 
-const ctx = document.getElementById('histogram').getContext('2d');
+function chartFunc(years, strikesByYear) {
 
-const chart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [0, 1, 2, 3, 4],
-    datasets: [{
-      label: 'Strikes by Year',
-      data: [19, 28, 20, 16],
-      backgroundColor: 'maroon',
-    }]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        display: false,
-        barPercentage: 1.3,
-        ticks: {
-          max: 3,
+    console.log(years);
+    console.log(strikesByYear);
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Strikes by Year',
+          data: strikesByYear,
+          backgroundColor: ["#FFDC73"],
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            display: false,
+            barPercentage: 1.3,
+            ticks: {
+              max: 3,
+              maxRotation: 90,
+              minRotation: 90,
+            }
+          }, {
+            display: true,
+            ticks: {
+              autoSkip: false,
+              max: 4,
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
         }
-      }, {
-        display: true,
-        ticks: {
-          autoSkip: false,
-          max: 4,
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
+      }
+    });
+
+}
 
 
 summaryMetrics.addEventListener("click", () => {
@@ -258,9 +313,12 @@ function toggleMapFunction() {
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
             summaryMetricsBtn.style.display = "none";
+            summaryMetrics.style.display = "none";
         } else {
             tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "block";
+            summaryMetrics.style.display = "none";
+            resultsTableContainer.style.display = "block";
         }
 
         contentDisplay.classList.toggle("map-mode");
@@ -625,10 +683,6 @@ function githubFunction() {
 
 
 
-/*  
-EXTRA IDEAS 
-1. Limit results to 50/100, etc
-*/
 
 
 // small bug - if summary metrics is active and user clicks map mode, problems occur
