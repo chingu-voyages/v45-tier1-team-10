@@ -294,9 +294,12 @@ function toggleMapFunction() {
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
             summaryMetricsBtn.style.display = "none";
+            summaryMetrics.style.display = "none";
         } else {
             tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "block";
+            summaryMetrics.style.display = "none";
+            resultsTableContainer.style.display = "block";
         }
 
         contentDisplay.classList.toggle("map-mode");
