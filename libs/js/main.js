@@ -110,7 +110,6 @@ function chartLabels() {
 
     chartYears.push(maxYear);
 
-    // chartFunc(chartYears);
     strikesByYearCalc(chartYears);
 }
 
@@ -123,20 +122,9 @@ function strikesByYearCalc(years) {
             strikesByYear[yearIndex]++;
         }
     });
-
-    // Now, you have an array strikesByYear where each element represents the strikes for a year.
-    // You can use this data to populate your chart.
     
     chartFunc(years, strikesByYear);
 }
-
-// function strikesByYearCalc(years) {
-//     console.log(finalItems);
-
-
-
-//     save into array defined globally, then try accessing in chartFunc()
-// } 
 
 const massCalculation = () => {
     let totalMass = 0;
@@ -207,9 +195,9 @@ summaryMetrics.addEventListener("click", () => {
 
 let map = L.map("map").setView([41.505, -0.09], 2);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
+L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: 'Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
 }).addTo(map);
 
 let layerGroup = L.layerGroup().addTo(map);
