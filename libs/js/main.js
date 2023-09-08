@@ -44,7 +44,6 @@ const ctaButton = document.querySelector(".cta-btn");
 const summaryMetrics = document.querySelector(".summary-metrics");
 const summaryMetricsBtn = document.querySelector(".summary-metrics-btn");
 const leafletMap = document.querySelector(".leaflet-map");
-let sumMetActive = false;
 const contentDisplay = document.querySelector(".content-display");
 
 
@@ -59,11 +58,6 @@ ctaButton.addEventListener("click", () => {
     renderTable(currentPage);
 })
 
-// brandLogo.addEventListener("click", () => {
-//     ctaButton.style.display = "block";
-//     openingInfo.style.display = "block";
-// })
-
 
 /*================SUMMARY METRICS COMPONENT================*/
 
@@ -71,15 +65,20 @@ const ctx = document.getElementById('histogram').getContext('2d');
 let chartYears = null;
 let yearsArr = null;
 let strikesArr = null;
+let sumMetActive = false;
+
 
 summaryMetricsBtn.addEventListener("click", () => {
 
     chartLabels();
-    // strikesByYearCalc();
 
-    summaryMetrics.children[1].innerHTML = `Total Strikes: ${finalItems.length}`;
+    const totalStrikes = document.querySelector(".total-strikes");
+    const avgMass = document.querySelector(".avg-mass");
 
-    summaryMetrics.children[2].innerHTML = `Average Mass: ${massCalculation()} grams`
+    totalStrikes.innerHTML = `Total Strikes: ${finalItems.length}`;
+    avgMass.innerHTML = `Average Mass: ${massCalculation()} grams`;
+
+    console.log(finalItems.length);
 
     sumMetActive = true;
 
