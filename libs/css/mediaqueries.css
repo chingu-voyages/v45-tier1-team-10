@@ -19,9 +19,9 @@
         font-size: 0.8rem;
     }
 
-    /* .results-table th, .results-table td { 
-          
-    }  */
+    .results-table th, .results-table td { 
+          font-size: 1rem;
+    } 
 }
 
 /* ================SMALLER SMARTPHONES======== */
@@ -43,9 +43,9 @@
         font-size: 0.7rem;
     }
 
-    /* .results-table th, .results-table td { 
-          
-    }  */
+     .results-table th, .results-table td { 
+         font-size: 0.7rem; 
+    }  
 }
 
     
