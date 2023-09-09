@@ -61,7 +61,7 @@ ctaButton.addEventListener("click", () => {
 
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").setView([41.505, -0.09], 2);
+let map = L.map("map").fitWorld();
 
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -206,9 +206,9 @@ function daymode() {
     const button = document.getElementById("mybtn");
     
     if (setTheme.classList.contains("day-mode")) {
-        button.innerHTML = `NIGHT MODE <span class="btn-circle"></span>`;
+        button.textContent = "NIGHT MODE";
     } else {
-        button.innerHTML = `DAY MODE <span class="btn-circle"></span>`;
+        button.textContent = "DAY MODE";
     }
     
 }
