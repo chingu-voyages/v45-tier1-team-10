@@ -206,9 +206,9 @@ function daymode() {
     const button = document.getElementById("mybtn");
     
     if (setTheme.classList.contains("day-mode")) {
-        button.textContent = "NIGHT MODE";
+        button.innerHTML = `NIGHT MODE <span class="btn-circle"></span>`;
     } else {
-        button.textContent = "DAY MODE";
+        button.innerHTML = `DAY MODE <span class="btn-circle"></span>`;
     }
     
 }

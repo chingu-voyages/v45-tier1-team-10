@@ -13,7 +13,6 @@ body {
   align-items: center;
   min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
-  /* background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(/assets/images/bg.jpg); */
   color: #fff;
   background: #000;
 }
@@ -84,13 +83,28 @@ button#mybtn, #tableMapBtn {
   background-color: #FFDC73;
   border-radius: 50%;
 }
-.day-mode {
-  /* background: linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7),url(/assets/images/day-bg.avif)); */
-  color: #000;
-  background: #fff;
+.day-circle {
+  float: left;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #0084FF;
+  border-radius: 50%;
 }
-.day-mode #mybtn {
-  background-color: #fff;
+.day-mode {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  color: #000;
+}
+.day-mode footer,
+.day-mode #mybtn,
+.day-mode #footerBtn,
+.day-mode #tableMapBtn,
+.day-mode .main-search,
+.day-mode .centered-container select{
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   color: #000;
   border: 1.5px solid #000;
   border-radius: 10px;
@@ -218,3 +232,63 @@ footer  option {
 .footer-up .search-parameters, .footer-up .footer-buttons {
     display: block;
   }
+
+
+/* ======================SEARCH PARAMETERS========================= */
+
+/* .search-parameters { 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
+.main-search {
+  width: 300px;
+  height: 50px;
+  margin: 0px auto;
+  display: block;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+} 
+
+.centered-container select {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.footer-buttons {
+ text-align: center;
+ margin-top: 20px;
+} 
+.footer-buttons button {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #FFDC73;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+
+
