@@ -151,6 +151,11 @@ button#mybtn, #tableMapBtn {
   border-radius: 5px;
   padding: 1rem;
   display: none;
+  margin-bottom: 20px;
+}
+.day-mode .summary-metrics {
+  border: 2px solid #000;
+  border-radius: 5px;
 }
 
 .summary-metrics p {
@@ -159,6 +164,7 @@ button#mybtn, #tableMapBtn {
 
 .summary-metrics-btn {
   display: none;
+  text-align: center;
   background-color: #FFDC73;
   border: none;
   border-radius: 10px;
@@ -168,7 +174,73 @@ button#mybtn, #tableMapBtn {
   font-weight: 500;
   font-family: 'Orbitron', sans-serif;
   cursor: pointer;
+  margin: 30px auto;
 }
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-head th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #fff;
+}
+
+.day-mode .table-head th,
+.day-mode .table-body tr,
+.day-mode .table-body td {
+  border: 1px solid #000;
+}
+
+.table-body tr {
+  border-bottom: 1px solid #fff;
+}
+
+.table-body td {
+  padding: 8px;
+  border: 1px solid #fff;
+}
+
+.results-table tbody tr:hover {
+  background-color: gray;
+}
+
+.table-pagination {
+  text-align: center;
+  margin: 20px 0s;
+}
+
+.prev-page,
+.next-page {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 10px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.day-mode .prev-page,
+.day-mode .next-page {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  color: #000;
+  border: 1.5px solid #000;
+  border-radius: 10px;
+}
+
+.curr-page {
+  font-size: 16px;
+  margin: 0 10px;
+}
+
 /*=========================FOOTER========================*/
 footer {
   border-top: 2px solid;
