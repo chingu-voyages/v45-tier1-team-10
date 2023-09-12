@@ -1,34 +1,20 @@
-/*======================WINDOW ONLOAD===================*/
+/*======================WINDOW ONLOAD GEOJSON VERSION===================*/
 let csvResult = null;
 let finalItems = null;
 let resultsTableContainer = null;
+let meteoriteData = null;
 
 window.onload = function() {
     const mainSearch = new XMLHttpRequest();
 
-    mainSearch.open("GET", "https://raw.githubusercontent.com/chingu-voyages/voyage-project-tier1-fireball/main/assets/Meteorite_Landings.csv", true);
+    mainSearch.open("GET", "assets/geoJSON/getMeteorites.geo.json", true);
 
     mainSearch.onload = function() {
         if(this.status == 200) {
-            const csvData = this.responseText;
-
-            Papa.parse(csvData, {
-                header: true,
-                dynamicTyping: true,
-                complete: (result) => {
-                    csvResult = [];
-                    result.data.forEach(item => {
-                        if(typeof item.GeoLocation === "string" && typeof item.year === "number" && typeof item["mass (g)"] === "number") {
-                            csvResult.push(item);
-                            finalItems = csvResult;
-                        }
-                    })                    
-                },
-                error: (error) => {
-                    console.error("Error parsing CSV:", error.message);
-                },
-            })
-
+            meteoriteData = JSON.parse(this.responseText);
+            console.log(meteoriteData);
+            finalItems = meteoriteData.data.features;
+            console.log(finalItems);
         }
     }
 
@@ -59,6 +45,7 @@ ctaButton.addEventListener("click", () => {
 })
 
 
+
 /*=======================INSTALL MAP===================== */
 
 let map = L.map("map").fitWorld();
@@ -68,11 +55,8 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	attribution: 'Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
 }).addTo(map);
 
-let layerGroup = L.layerGroup().addTo(map);
-let marker = null;
 
-
-/*==================LOGIC FOR TABLE====================*/
+/*==================LOGIC FOR TABLE GEOJSON VERSION====================*/
 
 const itemsPerPage = 10;
 
@@ -113,13 +97,13 @@ function renderTable(page) {
         const newRow = document.createElement("tr");
     
         newRow.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td>${item.recclass}</td>
-            <td>${item["mass (g)"]}</td>
-            <td>${item.year}</td>
-            <td>${item.reclat}</td>
-            <td>${item.reclong}</td>
+            <td>${item.properties.id}</td>
+            <td>${item.properties.name}</td>
+            <td>${item.properties.recclass}</td>
+            <td>${item.properties.mass}</td>
+            <td>${item.properties.year}</td>
+            <td>${item.geometry.coordinates[1]}</td>
+            <td>${item.geometry.coordinates[0]}</td>
         `
         resultsTableBody.append(newRow);
         
@@ -148,8 +132,6 @@ function renderTable(page) {
   
   prevPageButton.addEventListener("click", prevPage);
   nextPageButton.addEventListener("click", nextPage);
-  
-
 
 
 /*========================TOGGLE FUNCTIONS==================*/
@@ -158,13 +140,6 @@ const toggleMap = document.querySelector("#tableMapBtn");
 toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
-
-    if(finalItems.length > 2000) {
-
-        alert("Apologies: There is too much data to display. Please refine your search.");
-        tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
-
-    } else {
 
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
@@ -181,8 +156,7 @@ function toggleMapFunction() {
         displayResultsMap();
         displayResultsTable();
         map.invalidateSize();
-
-    }
+    
 }
 
 
@@ -206,9 +180,9 @@ function daymode() {
     const button = document.getElementById("mybtn");
     
     if (setTheme.classList.contains("day-mode")) {
-        button.textContent = "NIGHT MODE";
+        button.innerHTML = `NIGHT MODE <span class="btn-circle"></span>`;
     } else {
-        button.textContent = "DAY MODE";
+        button.innerHTML = `DAY MODE <span class="btn-circle"></span>`;
     }
     
 }
@@ -236,7 +210,7 @@ const massSelect = document.querySelector(".mass-select");
 mainSearch.addEventListener("click", clearNameInput);
 function clearNameInput() {
     if(nameInput.value.length > 0) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         nameInput.value = "";
         searchParameters.nameQuery = null;
         centurySelect.value = "";
@@ -246,7 +220,7 @@ function clearNameInput() {
     }
 
     if(searchParameters.openQuery != null) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         centurySelect.value = "";
         searchParameters.centuryQuery = null;
         massSelect.value = "";
@@ -261,14 +235,14 @@ function textInputFunction() {
     mainSearchInput = document.querySelector(".main-search").value.trim().toLowerCase();
     searchParameters.openQuery = mainSearchInput;
 
-    if(finalItems.length < 38115) {
+    if(finalItems.length < 32187) {
         finalItems = finalItems.filter(item => {
-            return item.name.includes(mainSearchInput);
+            return item.properties.name.includes(mainSearchInput);
         })
     } else {
         finalItems = [];
-        csvResult.forEach(item => {
-            const itemName = item.name.trim().toLowerCase(); 
+        meteoriteData.data.features.forEach(item => {
+            const itemName = item.properties.name.trim().toLowerCase(); 
             if(itemName.includes(mainSearchInput)) {
                 finalItems.push(item);
             }
@@ -285,7 +259,7 @@ nameInput.addEventListener("change", nameInputFunction);
 function nameInputFunction() {
 
     if(mainSearch.value.length > 0) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         mainSearch.value = "";
         searchParameters.openQuery = null;
         centurySelect.value = "";
@@ -295,7 +269,7 @@ function nameInputFunction() {
     }
 
     if(searchParameters.nameQuery != null) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         centurySelect.value = "";
         searchParameters.centuryQuery = null;
         massSelect.value = "";
@@ -311,17 +285,17 @@ function nameInputFunction() {
 
 function nameFilter() {
 
-    if(finalItems.length < 38115) {
+    if(finalItems.length < 32187) {
         finalItems = finalItems.filter(item => {
-            const itemName = item.name.trim().toLowerCase(); 
+            const itemName = item.properties.name.trim().toLowerCase(); 
             return itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2]);
         })
     } else {
 
         finalItems = [];
     
-        csvResult.forEach(item => {
-            const itemName = item.name.trim().toLowerCase(); 
+        meteoriteData.data.features.forEach(item => {
+            const itemName = item.properties.name.trim().toLowerCase(); 
             if(itemName.startsWith(searchParameters.nameQuery[0]) || itemName.startsWith(searchParameters.nameQuery[1]) || itemName.startsWith(searchParameters.nameQuery[2])) {
                         finalItems.push(item);
                     }
@@ -340,7 +314,7 @@ centurySelect.addEventListener("change", centuryInputFunction);
 function centuryInputFunction() {
 
     if(searchParameters.centuryQuery != null) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         mainSearch.value = "";
         searchParameters.openQuery = null;
         nameInput.value = "";
@@ -360,15 +334,15 @@ function centuryFilter() {
     const lowEnd = searchParameters.centuryQuery.slice(0, 4);
     const highEnd = searchParameters.centuryQuery.slice(-4);
 
-    if(finalItems.length < 38115) {
+    if(finalItems.length < 32187) {
         finalItems = finalItems.filter(item => {
-            return item.year >= lowEnd && item.year <= highEnd;
+            return item.properties.year >= lowEnd && item.properties.year <= highEnd;
         })
     } else {
         finalItems = [];   
 
-        csvResult.filter(item => {
-            if(item.year >= lowEnd && item.year <= highEnd) {
+        meteoriteData.data.features.filter(item => {
+            if(item.properties.year >= lowEnd && item.properties.year <= highEnd) {
                 finalItems.push(item);
             }
         })
@@ -384,7 +358,7 @@ massSelect.addEventListener("change", massInputFunction);
 function massInputFunction() {
 
     if(searchParameters.massQuery != null) {
-        finalItems = csvResult;
+        finalItems = meteoriteData.data.features;
         mainSearch.value = "";
         searchParameters.openQuery = null;
         nameInput.value = "";
@@ -404,15 +378,15 @@ function massFilter() {
     const lowMass = searchParameters.massQuery.slice(0, 8);
     const highMass = searchParameters.massQuery.slice(-8);
 
-    if(finalItems.length < 38115) {
+    if(finalItems.length < 32187) {
         finalItems = finalItems.filter(item => {
-            return item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass;
+            return Number(item.properties.mass) >= lowMass && Number(item.properties.mass) <= highMass;
         })
     } else {
         finalItems = [];
 
-        csvResult.filter(item => {
-            if(item["mass (g)"] >= lowMass && item["mass (g)"] <= highMass) {
+        meteoriteData.data.features.filter(item => {
+            if(Number(item.properties.mass) >= lowMass && Number(item.properties.mass) <= highMass) {
                 finalItems.push(item);
             }
         })
@@ -443,9 +417,7 @@ function searchNow() {
     
     searchForm.reset();
     
-
     setTimeout(function() {
-        // finalItems = csvResult;
         Object.keys(searchParameters).forEach((i) => searchParameters[i] = null);
     console.log(searchParameters);
     }, 1000); 
@@ -464,12 +436,16 @@ function displayResultsTable() {
 }
 
 
-function displayResultsMap() {
-    console.log(finalItems);
-    console.log(layerGroup);
+let geojsonLayer = null;
+const markerCluster = L.markerClusterGroup({
+    maxClusterRadius: 40,
+    disableClusteringAtZoom: 16
+});
 
-    layerGroup.clearLayers();
-    map.setView([41.505, -0.09], 2);
+function displayResultsMap() {
+    
+    markerCluster.clearLayers();
+    map.setView([41.505, -0.09], 1);
 
     if(finalItems.length < 1) {
 
@@ -477,35 +453,37 @@ function displayResultsMap() {
         resetFunction();
 
     } else {
-
-        finalItems.forEach(item => {
+      
+            geojsonLayer = L.geoJSON(finalItems, {
+                pointToLayer: function (feature, latlng) {
+                    const markerIcon = L.icon({
+                        iconUrl: "assets/images/markerIcon.png",
+                        iconSize: [30, 30],
+                        iconAnchor: [50, 50],
+                        popupAnchor: [-35, -55]
+                    });
+                    return L.marker(latlng, {
+                        icon: markerIcon
+                    });
+                },
+                onEachFeature: function (feature, layer) {
+                    const popupContent = `
+                        <ul class="popup-list" style="list-style: none;">
+                            <li class="popup-list-item"><strong>Id:</strong> ${feature.properties.id}</li>
+                            <li class="popup-list-item"><strong>Name:</strong> ${feature.properties.name}</li>
+                            <li class="popup-list-item"><strong>Record Class:</strong> ${feature.properties.recclass}</li>
+                            <li><strong>Mass (g):</strong> ${feature.properties.mass}</li>
+                            <li><strong>Year of Impact:</strong> ${feature.properties.year}</li>
+                            <li><strong>Latitude:</strong> ${feature.geometry.coordinates[1]}</li>
+                            <li><strong>Longitude:</strong> ${feature.geometry.coordinates[0]}</li>
+                        </ul>
+                    `;
+                    layer.bindPopup(popupContent);
+                }
+            });
     
-            const markerIcon = L.icon({
-                iconUrl: "assets/images/markerIcon.png",
-                iconSize: [30, 30],
-                iconAnchor: [50, 50],
-                popupAnchor: [-35, -55]
-            })
-            
-            marker = L.marker([item.reclat, item.reclong], {
-                icon: markerIcon
-            }).addTo(layerGroup);
-        
-            const markerPopup = L.popup().setContent(`
-                <ul class="popup-list" style="list-style: none;">
-                    <li class="popup-list-item"><strong>Id:</strong> ${item.id}</li>
-                    <li class="popup-list-item"><strong>Name:</strong> ${item.name}</li>
-                    <li class="popup-list-item"><strong>Record Class:</strong> ${item.recclass}</li>
-                    <li><strong>Mass (g):</strong> ${item["mass (g)"]}</li>
-                    <li><strong>Year of Impact:</strong> ${item.year}</li>
-                    <li><strong>Latitude:</strong> ${item.reclat}</li>
-                    <li><strong>Longitude:</strong> ${item.reclong}</li>
-                </ul>                       
-            `);
-    
-            marker.bindPopup(markerPopup).addTo(map);
-    
-        })
+                markerCluster.addLayer(geojsonLayer);
+                map.addLayer(markerCluster);
 
     }
 
@@ -549,7 +527,9 @@ summaryMetricsBtn.addEventListener("click", () => {
 
 function chartLabels() {
     
-    const years = finalItems.map(item => item.year);
+    const years = finalItems.map(item => item.properties.year);
+
+    // years start from 1300s with this new data
 
     const minYear = Math.min(...years);
     const maxYear = Math.max(...years);
@@ -569,7 +549,7 @@ function strikesByYearCalc(years) {
     const strikesByYear = Array(years.length).fill(0);
 
     finalItems.forEach(item => {
-        const yearIndex = years.indexOf(item.year);
+        const yearIndex = years.indexOf(item.properties.year);
         if (yearIndex !== -1) {
             strikesByYear[yearIndex]++;
         }
@@ -581,7 +561,7 @@ function strikesByYearCalc(years) {
 const massCalculation = () => {
     let totalMass = 0;
     finalItems.forEach(item => {
-        totalMass += item["mass (g)"];
+        totalMass += item.properties.mass;
     })
     return (totalMass / finalItems.length).toFixed(3);
 }
@@ -647,9 +627,9 @@ const resetButton = document.querySelector(".reset-btn");
 resetButton.addEventListener("click", resetFunction);
 
 function resetFunction() {
-    layerGroup.clearLayers();
+    markerCluster.clearLayers();
     currentPage = 1;
-    finalItems = csvResult;
+    finalItems = meteoriteData.data.features;
     searchForm.reset();
     updatePagination();
     renderTable(currentPage);
@@ -664,12 +644,5 @@ function githubFunction() {
     window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
 }
 
-
-
-
-
-
-
-
-// small bug - if summary metrics is active and user clicks map mode, problems occur
 // also work on charts tomoz - line 100ish
+// make table / map height bigger
