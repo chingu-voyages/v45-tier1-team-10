@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  background: #000;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 /* ====================HEADER======================== */
 .hero {
@@ -96,7 +96,10 @@ button#mybtn, #tableMapBtn {
   border-radius: 50%;
 }
 .day-mode {
-  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #000;
 }
 .day-mode footer,
@@ -105,12 +108,28 @@ button#mybtn, #tableMapBtn {
 .day-mode #tableMapBtn,
 .day-mode .main-search,
 .day-mode .centered-container select{
-  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background: #fff;
   color: #000;
   border: 1.5px solid #000;
   border-radius: 10px;
 }
-  
+.day-mode footer {
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} 
+
+.day-mode .cta-btn,
+.day-mode .footer-buttons button {
+  background: #0084FF;
+  border: none;
+  color: #fff;
+}
+
+.day-mode .table-pagination button {
+  background: #fff;
+}
 /*========================CONTENT DISPLAY==================*/
 .content-display {
   margin-top: 0;
@@ -144,6 +163,7 @@ button#mybtn, #tableMapBtn {
 
 .map-mode #map {
   display: block;
+  margin-top: 30px;
 }
 
 .map-mode .results-table, .map-mode .table-pagination {
@@ -180,7 +200,10 @@ button#mybtn, #tableMapBtn {
   cursor: pointer;
   margin: 30px auto;
 }
-
+.day-mode .summary-metrics-btn {
+  background-color: #0084FF;
+  color: #fff;
+}
 .table-container {
   width: 100%;
   overflow-x: auto;
@@ -256,7 +279,7 @@ footer {
   width: 100%;
   height: 8rem;
   z-index: 5;
-  background-color: #000;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 
 footer .mode-toggles {
@@ -280,17 +303,15 @@ footer  option {
     text-align: center;
   }
   
-   /* footer .footer-buttons {  */
-     /* display: none;  */
-  }
+    /* footer .footer-buttons {  
+      display: none;   
+   } 
 
-  /* footer .search-parameters { 
+  footer .search-parameters {
     display: none;
   }*/
   
-  footer {
-    display: none;
-  }
+ 
 
 #footerBtn {
     position: relative;

@@ -187,7 +187,6 @@ function daymode() {
     
 }
 
-
  /*====================SEARCH FUNCTIONS===================*/
 
 let mainSearchInput = null;
