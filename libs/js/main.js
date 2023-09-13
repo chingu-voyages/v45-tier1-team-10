@@ -500,12 +500,6 @@ let sumMetActive = false;
 
 summaryMetricsBtn.addEventListener("click", () => {
 
-    // statement giving list of params used - eg 'sum mets for hits in 1900s with mass of 5-10'
-    // most strikes in a year
-    // most common recclass
-
-    console.log(finalItems);
-
     // chartLabels();
 
     const totalStrikes = document.querySelector(".total-strikes");
@@ -515,7 +509,8 @@ summaryMetricsBtn.addEventListener("click", () => {
 
     totalStrikes.innerHTML = `<strong>Total Strikes:</strong> ${finalItems.length.toLocaleString("en-GB")}`;
     avgMass.innerHTML = `<strong>Average Mass:</strong> ${massCalculation()} grams`;
-    mostStrikesYear.innerHTML = `<strong>Severest Year:</strong> ${prevalentYear()}`;
+    mostStrikesYear.innerHTML = `<strong>Severest Year:</strong> ${prevalentYear(finalItems)}`;
+    mostCommonRecClass.innerHTML = `<strong>Most Common RecClass:</strong> ${prevalentRecClass(finalItems)}`
 
     sumMetActive = true;
 
@@ -530,19 +525,62 @@ summaryMetricsBtn.addEventListener("click", () => {
 })
 
 const massCalculation = () => {
-    console.log(finalItems);
+    
     let totalMass = 0;
     finalItems.forEach(item => {
         const parsedMass = parseInt(item.properties.mass);
         totalMass += parsedMass;
     })
-    // console.log(totalMass / finalItems.length);
-    return (totalMass / finalItems.length).toFixed(3);
+    const result = totalMass / finalItems.length; 
+    const roundedResult = Math.round(result * 100) / 100; 
+    const formattedResult = roundedResult.toLocaleString("en-GB"); 
+    
+    return formattedResult;
+
 }
 
-function prevalentYear() {
-    const yearCount = 0;
-    
+function prevalentYear(array) {
+    let yearCounts = {}; 
+    let maxCount = 0;
+    let prevalentYear;
+
+    for (let i = 0; i < array.length; i++) {
+        const year = array[i].properties.year;
+        if (yearCounts[year]) {
+            yearCounts[year]++; 
+        } else {
+            yearCounts[year] = 1;
+        }
+
+        if (yearCounts[year] > maxCount) {
+            maxCount = yearCounts[year];
+            prevalentYear = year;
+        }
+    }
+
+    return `${prevalentYear} (${maxCount.toLocaleString("en-GB")} strikes)`;
+}
+
+function prevalentRecClass(array) {
+    let recClassCounts = {}; 
+    let maxCount = 0;
+    let prevalentRecClass;
+
+    for (let i = 0; i < array.length; i++) {
+        const recClass = array[i].properties.recclass;
+        if (recClassCounts[recClass]) {
+            recClassCounts[recClass]++; 
+        } else {
+            recClassCounts[recClass] = 1; 
+        }
+
+        if (recClassCounts[recClass] > maxCount) {
+            maxCount = recClassCounts[recClass];
+            prevalentRecClass = recClass;
+        }
+    }
+
+    return prevalentRecClass;
 }
 
 summaryMetrics.addEventListener("click", () => {
@@ -657,5 +695,4 @@ function githubFunction() {
     window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
 }
 
-// also work on charts tomoz - line 100ish
-// make table / map height bigger
+
