@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  background: #000;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 /* ====================HEADER======================== */
 .hero {
@@ -74,7 +74,7 @@ button#mybtn, #tableMapBtn {
 }
 .btn-circle {
   /* display: inline-block; */
-  float: left;
+  float: left; 
   position: absolute;
   top: 50%;
   right: 5px;
@@ -84,19 +84,27 @@ button#mybtn, #tableMapBtn {
   background-color: #FFDC73;
   border-radius: 50%;
 }
-.day-circle {
-  float: left;
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+.day-mode .btn-circle {
   background-color: #0084FF;
-  border-radius: 50%;
-}
+  left: 5px;
+  /* margin-right: 80px; */
+  /* margin-right: 25px; */
+  }
+
+  .day-mode button#mybtn {
+    text-align: end;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .day-mode #tableMapBtn {
+    text-align: end;
+    padding: 10px 18px 10px 10px;
+  }
 .day-mode {
-  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #000;
 }
 .day-mode footer,
@@ -105,12 +113,29 @@ button#mybtn, #tableMapBtn {
 .day-mode #tableMapBtn,
 .day-mode .main-search,
 .day-mode .centered-container select{
-  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background: #fff; 
   color: #000;
   border: 1.5px solid #000;
   border-radius: 10px;
 }
-  
+.day-mode footer { 
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} 
+.day-mode .cta-btn,
+.day-mode .footer-buttons button,
+.day-mode .summary-metrics-btn {
+  background: #0084FF;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.day-mode .table-pagination button {
+  background: #fff;
+}
 /*========================CONTENT DISPLAY==================*/
 .content-display {
   margin-top: 0;
@@ -144,6 +169,7 @@ button#mybtn, #tableMapBtn {
 
 .map-mode #map {
   display: block;
+  margin-top: 50px;
 }
 
 .map-mode .results-table, .map-mode .table-pagination {
@@ -155,7 +181,7 @@ button#mybtn, #tableMapBtn {
   border-radius: 5px;
   padding: 1rem;
   display: none;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 .day-mode .summary-metrics {
   border: 2px solid #000;
@@ -180,7 +206,6 @@ button#mybtn, #tableMapBtn {
   cursor: pointer;
   margin: 30px auto;
 }
-
 .table-container {
   width: 100%;
   overflow-x: auto;
@@ -189,7 +214,9 @@ button#mybtn, #tableMapBtn {
 
 .results-table {
   width: 100%;
+  height: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .table-head th {
@@ -211,6 +238,7 @@ button#mybtn, #tableMapBtn {
 .table-body td {
   padding: 8px;
   border: 1px solid #fff;
+  overflow: hidden;
 }
 
 .results-table tbody tr:hover {
@@ -220,6 +248,7 @@ button#mybtn, #tableMapBtn {
 .table-pagination {
   text-align: center;
   margin: 20px 0s;
+  text-align: fixed;
 }
 
 .prev-page,
@@ -256,7 +285,7 @@ footer {
   width: 100%;
   height: 8rem;
   z-index: 5;
-  background-color: #000;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 
 footer .mode-toggles {
@@ -280,17 +309,15 @@ footer  option {
     text-align: center;
   }
   
-   /* footer .footer-buttons {  */
-     /* display: none;  */
-  }
+    /* footer .footer-buttons {  
+      display: none;   
+   } 
 
-  /* footer .search-parameters { 
+  footer .search-parameters {
     display: none;
   }*/
   
-  footer {
-    display: none;
-  }
+ 
 
 #footerBtn {
     position: relative;
