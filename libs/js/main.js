@@ -14,7 +14,7 @@ window.onload = function() {
             meteoriteData = JSON.parse(this.responseText);
             console.log(meteoriteData);
             finalItems = meteoriteData.data.features;
-            console.log(finalItems);
+            finalItems = finalItems.filter((item) => item.properties.year > 1299);
         }
     }
 
@@ -491,7 +491,7 @@ function displayResultsMap() {
 
 /*================SUMMARY METRICS COMPONENT================*/
 
-const ctx = document.getElementById('histogram').getContext('2d');
+// const ctx = document.getElementById('histogram').getContext('2d');
 let chartYears = null;
 let yearsArr = null;
 let strikesArr = null;
@@ -500,112 +500,87 @@ let sumMetActive = false;
 
 summaryMetricsBtn.addEventListener("click", () => {
 
-    chartLabels();
+    // chartLabels();
 
     const totalStrikes = document.querySelector(".total-strikes");
     const avgMass = document.querySelector(".avg-mass");
+    const mostStrikesYear = document.querySelector(".most-strikes-year");
+    const mostCommonRecClass = document.querySelector(".most-common-recclass");
 
-    totalStrikes.innerHTML = `Total Strikes: ${finalItems.length}`;
-    avgMass.innerHTML = `Average Mass: ${massCalculation()} grams`;
-
-    console.log(finalItems.length);
+    totalStrikes.innerHTML = `<strong>Total Strikes:</strong> ${finalItems.length.toLocaleString("en-GB")}`;
+    avgMass.innerHTML = `<strong>Average Mass:</strong> ${massCalculation()} grams`;
+    mostStrikesYear.innerHTML = `<strong>Severest Year:</strong> ${prevalentYear(finalItems)}`;
+    mostCommonRecClass.innerHTML = `<strong>Most Common RecClass:</strong> ${prevalentRecClass(finalItems)}`
 
     sumMetActive = true;
 
     if(contentDisplay.classList.contains("map-mode")) {
         leafletMap.style.display = "none";
         summaryMetrics.style.display = "block";
-        console.log("oh yes");
     } else {
         
         resultsTableContainer.style.display = "none";
         summaryMetrics.style.display = "block";
-        console.log("oh no");
     }
 })
 
-function chartLabels() {
-    
-    const years = finalItems.map(item => item.properties.year);
-
-    // years start from 1300s with this new data
-
-    const minYear = Math.min(...years);
-    const maxYear = Math.max(...years);
-
-    const yearRange = maxYear - minYear;
-
-    const intervalSize = Math.floor(yearRange / 9);
-
-    const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
-
-    chartYears.push(maxYear);
-
-    strikesByYearCalc(chartYears);
-}
-
-function strikesByYearCalc(years) {
-    const strikesByYear = Array(years.length).fill(0);
-
-    finalItems.forEach(item => {
-        const yearIndex = years.indexOf(item.properties.year);
-        if (yearIndex !== -1) {
-            strikesByYear[yearIndex]++;
-        }
-    });
-    
-    chartFunc(years, strikesByYear);
-}
-
 const massCalculation = () => {
+    
     let totalMass = 0;
     finalItems.forEach(item => {
-        totalMass += item.properties.mass;
+        const parsedMass = parseInt(item.properties.mass);
+        totalMass += parsedMass;
     })
-    return (totalMass / finalItems.length).toFixed(3);
+    const result = totalMass / finalItems.length; 
+    const roundedResult = Math.round(result * 100) / 100; 
+    const formattedResult = roundedResult.toLocaleString("en-GB"); 
+    
+    return formattedResult;
+
 }
 
-function chartFunc(years, strikesByYear) {
+function prevalentYear(array) {
+    let yearCounts = {}; 
+    let maxCount = 0;
+    let prevalentYear;
 
-    console.log(years);
-    console.log(strikesByYear);
-
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'Strikes by Year',
-          data: strikesByYear,
-          backgroundColor: ["#FFDC73"],
-        }]
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            display: false,
-            barPercentage: 1.3,
-            ticks: {
-              max: 3,
-              maxRotation: 90,
-              minRotation: 90,
-            }
-          }, {
-            display: true,
-            ticks: {
-              autoSkip: false,
-              max: 4,
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
+    for (let i = 0; i < array.length; i++) {
+        const year = array[i].properties.year;
+        if (yearCounts[year]) {
+            yearCounts[year]++; 
+        } else {
+            yearCounts[year] = 1;
         }
-      }
-    });
 
+        if (yearCounts[year] > maxCount) {
+            maxCount = yearCounts[year];
+            prevalentYear = year;
+        }
+    }
+
+    return `${prevalentYear} (${maxCount.toLocaleString("en-GB")} strikes)`;
+}
+
+function prevalentRecClass(array) {
+    let recClassCounts = {}; 
+    let maxCount = 0;
+    let prevalentRecClass;
+
+    for (let i = 0; i < array.length; i++) {
+        const recClass = array[i].properties.recclass;
+        if (recClassCounts[recClass]) {
+            recClassCounts[recClass]++; 
+        } else {
+            recClassCounts[recClass] = 1; 
+        }
+
+        if (recClassCounts[recClass] > maxCount) {
+            maxCount = recClassCounts[recClass];
+            prevalentRecClass = recClass;
+        }
+    }
+
+    return prevalentRecClass;
 }
 
 summaryMetrics.addEventListener("click", () => {
@@ -619,6 +594,83 @@ summaryMetrics.addEventListener("click", () => {
     }
     
 })
+
+// function chartLabels() {
+    
+//     const years = finalItems.map(item => item.properties.year);
+
+//     const minYear = Math.min(...years);
+//     const maxYear = Math.max(...years);
+
+//     const yearRange = maxYear - minYear;
+
+//     const intervalSize = Math.floor(yearRange / 9);
+
+//     const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
+//     console.log(minYear);
+
+//     chartYears.push(maxYear);
+
+//     strikesByYearCalc(chartYears);
+// }
+
+// function strikesByYearCalc(years) {
+//     const strikesByYear = Array(years.length).fill(0);
+
+//     finalItems.forEach(item => {
+//         const yearIndex = years.indexOf(item.properties.year);
+//         if (yearIndex !== -1) {
+//             strikesByYear[yearIndex]++;
+//         }
+//     });
+    
+//     chartFunc(years, strikesByYear);
+// }
+
+
+// function chartFunc(years, strikesByYear) {
+
+//     console.log(years);
+//     console.log(strikesByYear);
+
+//     const chart = new Chart(ctx, {
+//       type: 'line',
+//       data: {
+//         labels: years,
+//         datasets: [{
+//           label: 'Strikes by Year',
+//           data: strikesByYear,
+//           backgroundColor: ["#FFDC73"],
+//         }]
+//       },
+//       options: {
+//         scales: {
+//           xAxes: [{
+//             display: false,
+//             barPercentage: 1.3,
+//             ticks: {
+//               max: 3,
+//               maxRotation: 90,
+//               minRotation: 90,
+//             }
+//           }, {
+//             display: true,
+//             ticks: {
+//               autoSkip: false,
+//               max: 4,
+//             }
+//           }],
+//           yAxes: [{
+//             ticks: {
+//               beginAtZero: true
+//             }
+//           }]
+//         }
+//       }
+//     });
+
+// }
+
 
 
 /*=====================RESET BUTTON==================*/
@@ -643,5 +695,4 @@ function githubFunction() {
     window.open("https://github.com/chingu-voyages/v45-tier1-team-10", "_blank");
 }
 
-// also work on charts tomoz - line 100ish
-// make table / map height bigger
+
