@@ -14,7 +14,7 @@ window.onload = function() {
             meteoriteData = JSON.parse(this.responseText);
             console.log(meteoriteData);
             finalItems = meteoriteData.data.features;
-            console.log(finalItems);
+            finalItems = finalItems.filter((item) => item.properties.year > 1299);
         }
     }
 
@@ -492,7 +492,7 @@ function displayResultsMap() {
 
 /*================SUMMARY METRICS COMPONENT================*/
 
-const ctx = document.getElementById('histogram').getContext('2d');
+// const ctx = document.getElementById('histogram').getContext('2d');
 let chartYears = null;
 let yearsArr = null;
 let strikesArr = null;
@@ -501,112 +501,49 @@ let sumMetActive = false;
 
 summaryMetricsBtn.addEventListener("click", () => {
 
-    chartLabels();
+    // statement giving list of params used - eg 'sum mets for hits in 1900s with mass of 5-10'
+    // most strikes in a year
+    // most common recclass
+
+    console.log(finalItems);
+
+    // chartLabels();
 
     const totalStrikes = document.querySelector(".total-strikes");
     const avgMass = document.querySelector(".avg-mass");
+    const mostStrikesYear = document.querySelector(".most-strikes-year");
+    const mostCommonRecClass = document.querySelector(".most-common-recclass");
 
-    totalStrikes.innerHTML = `Total Strikes: ${finalItems.length}`;
-    avgMass.innerHTML = `Average Mass: ${massCalculation()} grams`;
-
-    console.log(finalItems.length);
+    totalStrikes.innerHTML = `<strong>Total Strikes:</strong> ${finalItems.length.toLocaleString("en-GB")}`;
+    avgMass.innerHTML = `<strong>Average Mass:</strong> ${massCalculation()} grams`;
+    mostStrikesYear.innerHTML = `<strong>Severest Year:</strong> ${prevalentYear()}`;
 
     sumMetActive = true;
 
     if(contentDisplay.classList.contains("map-mode")) {
         leafletMap.style.display = "none";
         summaryMetrics.style.display = "block";
-        console.log("oh yes");
     } else {
         
         resultsTableContainer.style.display = "none";
         summaryMetrics.style.display = "block";
-        console.log("oh no");
     }
 })
 
-function chartLabels() {
-    
-    const years = finalItems.map(item => item.properties.year);
-
-    // years start from 1300s with this new data
-
-    const minYear = Math.min(...years);
-    const maxYear = Math.max(...years);
-
-    const yearRange = maxYear - minYear;
-
-    const intervalSize = Math.floor(yearRange / 9);
-
-    const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
-
-    chartYears.push(maxYear);
-
-    strikesByYearCalc(chartYears);
-}
-
-function strikesByYearCalc(years) {
-    const strikesByYear = Array(years.length).fill(0);
-
-    finalItems.forEach(item => {
-        const yearIndex = years.indexOf(item.properties.year);
-        if (yearIndex !== -1) {
-            strikesByYear[yearIndex]++;
-        }
-    });
-    
-    chartFunc(years, strikesByYear);
-}
-
 const massCalculation = () => {
+    console.log(finalItems);
     let totalMass = 0;
     finalItems.forEach(item => {
-        totalMass += item.properties.mass;
+        const parsedMass = parseInt(item.properties.mass);
+        totalMass += parsedMass;
     })
+    // console.log(totalMass / finalItems.length);
     return (totalMass / finalItems.length).toFixed(3);
 }
 
-function chartFunc(years, strikesByYear) {
-
-    console.log(years);
-    console.log(strikesByYear);
-
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'Strikes by Year',
-          data: strikesByYear,
-          backgroundColor: ["#FFDC73"],
-        }]
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            display: false,
-            barPercentage: 1.3,
-            ticks: {
-              max: 3,
-              maxRotation: 90,
-              minRotation: 90,
-            }
-          }, {
-            display: true,
-            ticks: {
-              autoSkip: false,
-              max: 4,
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-
+function prevalentYear() {
+    const yearCount = 0;
+    
 }
 
 summaryMetrics.addEventListener("click", () => {
@@ -620,6 +557,83 @@ summaryMetrics.addEventListener("click", () => {
     }
     
 })
+
+// function chartLabels() {
+    
+//     const years = finalItems.map(item => item.properties.year);
+
+//     const minYear = Math.min(...years);
+//     const maxYear = Math.max(...years);
+
+//     const yearRange = maxYear - minYear;
+
+//     const intervalSize = Math.floor(yearRange / 9);
+
+//     const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
+//     console.log(minYear);
+
+//     chartYears.push(maxYear);
+
+//     strikesByYearCalc(chartYears);
+// }
+
+// function strikesByYearCalc(years) {
+//     const strikesByYear = Array(years.length).fill(0);
+
+//     finalItems.forEach(item => {
+//         const yearIndex = years.indexOf(item.properties.year);
+//         if (yearIndex !== -1) {
+//             strikesByYear[yearIndex]++;
+//         }
+//     });
+    
+//     chartFunc(years, strikesByYear);
+// }
+
+
+// function chartFunc(years, strikesByYear) {
+
+//     console.log(years);
+//     console.log(strikesByYear);
+
+//     const chart = new Chart(ctx, {
+//       type: 'line',
+//       data: {
+//         labels: years,
+//         datasets: [{
+//           label: 'Strikes by Year',
+//           data: strikesByYear,
+//           backgroundColor: ["#FFDC73"],
+//         }]
+//       },
+//       options: {
+//         scales: {
+//           xAxes: [{
+//             display: false,
+//             barPercentage: 1.3,
+//             ticks: {
+//               max: 3,
+//               maxRotation: 90,
+//               minRotation: 90,
+//             }
+//           }, {
+//             display: true,
+//             ticks: {
+//               autoSkip: false,
+//               max: 4,
+//             }
+//           }],
+//           yAxes: [{
+//             ticks: {
+//               beginAtZero: true
+//             }
+//           }]
+//         }
+//       }
+//     });
+
+// }
+
 
 
 /*=====================RESET BUTTON==================*/
