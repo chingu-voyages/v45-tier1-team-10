@@ -18,15 +18,52 @@
     .cta-btn {
         font-size: 0.8rem;
     }
+    .results-table{  
+        width: 100%;
+         overflow-x: auto; 
+        table-layout: fixed;
+    }
+    
+    .table-pagination {
+        text-align: center;
+        margin: 20px 0;
+    }
 
-    .results-table th, .results-table td { 
-          font-size: 1rem;
-    } 
+    .table-pagination button {
+        margin: 5px;
+    }
+    .curr-page {
+        margin: 5px;
+    }
+
+
+    
+    footer {
+        height: auto;
+    }
+
+    .mode-toggles {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .night-day-mode , .footer-up-down, .table-map-mode {
+        margin-bottom: 30px;
+    }
+
+    .footer-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-buttons button {
+        margin: 5px;
+    }
 }
 
 /* ================SMALLER SMARTPHONES======== */
 
-@media screen and (max-width: 480px) {
+ @media screen and (max-width: 480px) { 
     .hero {
         padding-top: 1rem;
     }
@@ -48,4 +85,4 @@
     }  
 }
 
-    
+ 
