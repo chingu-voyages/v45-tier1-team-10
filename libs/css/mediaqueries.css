@@ -38,21 +38,15 @@
         margin: 5px;
     }
 
-
-    
-    footer {
-        height: auto;
-    }
-
     .mode-toggles {
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .night-day-mode , .footer-up-down, .table-map-mode {
+    /* .night-day-mode , .footer-up-down, .table-map-mode {
         margin-bottom: 30px;
-    }
+    } */
 
     .footer-buttons {
         flex-direction: column;

@@ -11,26 +11,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  max-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
   background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 /* ====================HEADER======================== */
-.hero {
-  /* height: 5vh;  */
-  /* width: 80%; */
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 80vh;
-  margin-bottom: 0;
-}
 
 .project-title {
   font-size: 2.5rem;
@@ -278,21 +264,25 @@ button#mybtn, #tableMapBtn {
 /*=========================FOOTER========================*/
 footer {
   border-top: 2px solid;
+  border-radius: 20px 20px;
   padding: 1rem;
   margin-top: 2rem;
-  position: relative;
+  position: fixed;
   bottom: 0;
   width: 100%;
-  height: 8rem;
+  height: auto;
   z-index: 5;
-  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
+  background-color: rgb(0, 0, 0, .5);
 }
 
 footer .mode-toggles {
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 2rem;
+}
+
+footer .mode-toggles div {
+  margin: 0;
 }
 
 footer .footer-up-down {
@@ -308,15 +298,6 @@ footer  option {
     font-size: 14px;
     text-align: center;
   }
-  
-    /* footer .footer-buttons {  
-      display: none;   
-   } 
-
-  footer .search-parameters {
-    display: none;
-  }*/
-  
  
 
 #footerBtn {
@@ -335,30 +316,16 @@ footer  option {
 
 
 
-/*===================CLASSLIST: FOOTER-UP==================*/
-
-.footer-up .footer-up-down {
-  transform: rotate(180deg);
-}
-
-.footer-up .search-parameters, .footer-up .footer-buttons {
-    display: block;
-  }
-
-
 /* ======================SEARCH PARAMETERS========================= */
 
- /* .search-parameters {  
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-} */
+.search-parameters, .footer-buttons {  
+  display: none;
+}
 
 .main-search {
   width: 300px;
   height: 50px;
-  margin: 0px auto;
+  margin: 50px auto;
   display: block;
   background-color: #000;
   color: #fff;
@@ -373,7 +340,7 @@ footer  option {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 20px;
+  margin: 50px auto;
 } 
 
 .centered-container select {
@@ -389,8 +356,9 @@ footer  option {
 
 .footer-buttons {
  text-align: center;
- margin-top: 20px;
+ margin: 50px auto;
 } 
+
 .footer-buttons button {
   padding: 10px;
   margin: 0 5px;
@@ -402,5 +370,23 @@ footer  option {
   font-family: 'Orbitron', sans-serif;
 }
 
+
+/*===================CLASSLIST: FOOTER-UP==================*/
+
+.footer-up .footer-up-down {
+  transform: rotate(180deg);
+}
+
+.footer-up .mode-toggles {
+  margin: 3rem auto;
+}
+
+.footer-up .search-parameters, .footer-up .footer-buttons {
+    display: block;
+  }
+
+.footer-up .search-parameters, .footer-up .footer-buttons {  
+  display: block;
+}
 
 
