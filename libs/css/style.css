@@ -16,6 +16,14 @@ body {
   color: #fff;
   background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
+
+.overlay {
+  width: 100vw;
+  height: 1000vh;
+  position: fixed;
+  background-color: rgba(0,0,0,0.7);
+  display: none;
+}
 /* ====================HEADER======================== */
 
 .project-title {
@@ -192,11 +200,11 @@ button#mybtn, #tableMapBtn {
   cursor: pointer;
   margin: 30px auto;
 }
-.table-container {
+/* .table-container {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-}
+} */
 
 .results-table {
   width: 100%;
@@ -264,7 +272,7 @@ button#mybtn, #tableMapBtn {
 /*=========================FOOTER========================*/
 footer {
   border-top: 2px solid;
-  border-radius: 20px 20px;
+  border-radius: 20px 20px 0 0;
   padding: 1rem;
   margin-top: 2rem;
   position: fixed;
@@ -272,7 +280,7 @@ footer {
   width: 100%;
   height: auto;
   z-index: 5;
-  background-color: rgb(0, 0, 0, .5);
+  background-color: rgb(0, 0, 0);
 }
 
 footer .mode-toggles {
@@ -356,7 +364,7 @@ footer  option {
 
 .footer-buttons {
  text-align: center;
- margin: 50px auto;
+ margin: 50px;
 } 
 
 .footer-buttons button {
@@ -371,11 +379,26 @@ footer  option {
 }
 
 
+/*==================CLASSLIST: ctaCLICK===================*/
+
+/* .ctaClick .summary-metrics-btn {
+  display: block;
+} */
+
+
 /*===================CLASSLIST: FOOTER-UP==================*/
 
 .footer-up .footer-up-down {
   transform: rotate(180deg);
 }
+
+.footer-up .overlay {
+  display: block;
+}
+
+/* .footer-up .results-table, .footer-up .table-pagination, .footer-up #map, .footer-up .summary-metrics-btn {
+  display: none;
+} */
 
 .footer-up .mode-toggles {
   margin: 3rem auto;
