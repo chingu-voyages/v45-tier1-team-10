@@ -38,12 +38,6 @@
         margin: 5px;
     }
 
-
-    
-    footer {
-        height: auto;
-    }
-
     .mode-toggles {
         flex-direction: column;
         align-items: center;

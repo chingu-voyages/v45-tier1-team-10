@@ -39,6 +39,7 @@ ctaButton.addEventListener("click", () => {
     resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
     summaryMetricsBtn.style.display = "block";
+    // contentDisplay.classList.toggle("ctaClick");
       // Initial render
     updatePagination();
     renderTable(currentPage);
@@ -134,7 +135,7 @@ function renderTable(page) {
   nextPageButton.addEventListener("click", nextPage);
 
 
-/*========================TOGGLE FUNCTIONS==================*/
+/*========================MAP MODE==================*/
 
 const toggleMap = document.querySelector("#tableMapBtn");
 toggleMap.addEventListener("click", toggleMapFunction);
@@ -159,7 +160,7 @@ function toggleMapFunction() {
     
 }
 
-
+/*===================FOOTER TOGGLE======================*/
 
 const footer = document.querySelector("footer");
 const toggleFooter = document.querySelector(".footer-up-down");
@@ -167,6 +168,12 @@ toggleFooter.addEventListener("click", toggleFooterFunction);
 
 function toggleFooterFunction() {
     footer.classList.toggle("footer-up");
+    // contentDisplay.classList.toggle("footer-up");
+    document.body.classList.toggle("footer-up");
+
+    
+    // toggling the overlay causes problems when search button clicked
+    
     resetFunction();
 }
 
