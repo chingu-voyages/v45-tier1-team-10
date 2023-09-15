@@ -4,14 +4,13 @@
 
 This app was created for the Chingu-voyage v45 project. The api uses data from <i><a href = "https://data.nasa.gov/widgets/c2vx-j9ed">The Meteoritical Society that contains information on all of the known meteorite landings.</a></i>
 
-Live Link: Coming soon!
+Live Link: <a href = "https://chingu-voyages.github.io/v45-tier1-team-10/">Click here</a>
 
 # Features
 Coming soon!
 
 # Running project
 
-Live Link: Coming soon!
 <ul>
   <li> Clone the repo locally.</li>
   <li> You're done! Enjoy!</li>
