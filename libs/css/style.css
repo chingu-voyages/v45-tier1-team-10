@@ -22,6 +22,7 @@ body {
   height: 1000vh;
   position: fixed;
   background-color: rgba(0,0,0,0.7);
+  z-index: 4000;
   display: none;
 }
 /* ====================HEADER======================== */
@@ -274,7 +275,7 @@ footer {
   bottom: 0;
   width: 100%;
   height: auto;
-  z-index: 5;
+  z-index: 5000;
   background-color: rgb(0, 0, 0);
 }
 
