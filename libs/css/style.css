@@ -391,13 +391,9 @@ footer  option {
   transform: rotate(180deg);
 }
 
-/* .footer-up .overlay {
+.footer-up .overlay {
   display: block;
-} */
-
-/* .footer-up .results-table, .footer-up .table-pagination, .footer-up #map, .footer-up .summary-metrics-btn {
-  display: none;
-} */
+}
 
 .footer-up .mode-toggles {
   margin: 3rem auto;
