@@ -80,19 +80,14 @@ button#mybtn, #tableMapBtn {
 }
 .day-mode .btn-circle {
   background-color: #0084FF;
+}
+.day-mode #mybtn .btn-circle {
   left: 5px;
-  /* margin-right: 80px; */
-  /* margin-right: 25px; */
   }
 
   .day-mode button#mybtn {
     text-align: end;
     padding: 10px 10px 10px 10px;
-  }
-
-  .day-mode #tableMapBtn {
-    text-align: end;
-    padding: 10px 18px 10px 10px;
   }
 .day-mode {
   background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
@@ -378,6 +373,10 @@ footer  option {
   font-family: 'Orbitron', sans-serif;
 }
 
+.footer-buttons button:hover {
+  cursor: pointer;
+}
+
 
 /*==================CLASSLIST: ctaCLICK===================*/
 
@@ -395,10 +394,6 @@ footer  option {
 .footer-up .overlay {
   display: block;
 }
-
-/* .footer-up .results-table, .footer-up .table-pagination, .footer-up #map, .footer-up .summary-metrics-btn {
-  display: none;
-} */
 
 .footer-up .mode-toggles {
   margin: 3rem auto;

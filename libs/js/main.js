@@ -45,6 +45,62 @@ ctaButton.addEventListener("click", () => {
     renderTable(currentPage);
 })
 
+/*========================MAP MODE==================*/
+
+const toggleMap = document.querySelector("#tableMapBtn");
+toggleMap.addEventListener("click", toggleMapFunction);
+
+function toggleMapFunction() {
+
+        if(!contentDisplay.classList.contains("map-mode")) {
+            tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
+            summaryMetricsBtn.style.display = "none";
+            summaryMetrics.style.display = "none";
+        } else {
+            tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
+            summaryMetricsBtn.style.display = "block";
+            summaryMetrics.style.display = "none";
+            resultsTableContainer.style.display = "block";
+        }
+
+        contentDisplay.classList.toggle("map-mode");
+        displayResultsMap();
+        displayResultsTable();
+        map.invalidateSize();
+    
+}
+
+/*===================FOOTER TOGGLE======================*/
+
+const footer = document.querySelector("footer");
+const toggleFooter = document.querySelector(".footer-up-down");
+toggleFooter.addEventListener("click", toggleFooterFunction);
+
+function toggleFooterFunction() {
+
+    footer.classList.toggle("footer-up");
+    document.body.classList.toggle("footer-up");
+    
+    resetFunction();
+}
+
+
+/*====================NIGHT-DAY-MODE=================*/
+function daymode() {
+    let setTheme = document.body;
+
+    setTheme.classList.toggle("day-mode");
+    
+    const button = document.getElementById("mybtn");
+    
+    if (setTheme.classList.contains("day-mode")) {
+        button.innerHTML = `NIGHT MODE <span class="btn-circle"></span>`;
+    } else {
+        button.innerHTML = `DAY MODE <span class="btn-circle"></span>`;
+    }
+    
+}
+
 
 
 /*=======================INSTALL MAP===================== */
@@ -57,7 +113,7 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-/*==================LOGIC FOR TABLE GEOJSON VERSION====================*/
+/*==================LOGIC FOR TABLE====================*/
 
 const itemsPerPage = 10;
 
@@ -135,64 +191,7 @@ function renderTable(page) {
   nextPageButton.addEventListener("click", nextPage);
 
 
-/*========================MAP MODE==================*/
 
-const toggleMap = document.querySelector("#tableMapBtn");
-toggleMap.addEventListener("click", toggleMapFunction);
-
-function toggleMapFunction() {
-
-        if(!contentDisplay.classList.contains("map-mode")) {
-            tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
-            summaryMetricsBtn.style.display = "none";
-            summaryMetrics.style.display = "none";
-        } else {
-            tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
-            summaryMetricsBtn.style.display = "block";
-            summaryMetrics.style.display = "none";
-            resultsTableContainer.style.display = "block";
-        }
-
-        contentDisplay.classList.toggle("map-mode");
-        displayResultsMap();
-        displayResultsTable();
-        map.invalidateSize();
-    
-}
-
-/*===================FOOTER TOGGLE======================*/
-
-const footer = document.querySelector("footer");
-const toggleFooter = document.querySelector(".footer-up-down");
-toggleFooter.addEventListener("click", toggleFooterFunction);
-
-function toggleFooterFunction() {
-    footer.classList.toggle("footer-up");
-    // contentDisplay.classList.toggle("footer-up");
-    document.body.classList.toggle("footer-up");
-
-    
-    // toggling the overlay causes problems when search button clicked
-    
-    resetFunction();
-}
-
-
-/*====================NIGHT-DAY-MODE=================*/
-function daymode() {
-    let setTheme = document.body;
-
-    setTheme.classList.toggle("day-mode");
-    
-    const button = document.getElementById("mybtn");
-    
-    if (setTheme.classList.contains("day-mode")) {
-        button.innerHTML = `NIGHT MODE <span class="btn-circle"></span>`;
-    } else {
-        button.innerHTML = `DAY MODE <span class="btn-circle"></span>`;
-    }
-    
-}
 
  /*====================SEARCH FUNCTIONS===================*/
 
@@ -410,7 +409,12 @@ mainSearchButton.addEventListener("click", searchNow)
 
 function searchNow() {
 
-    footer.classList.toggle("footer-up");
+    if(footer.classList[0]) {
+        footer.classList.toggle("footer-up");
+        document.body.classList.toggle("footer-up");
+    } 
+
+
 
     if (contentDisplay.classList.contains("map-mode")) {
         console.log("Map mode is active");
