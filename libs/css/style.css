@@ -373,6 +373,10 @@ footer  option {
   font-family: 'Orbitron', sans-serif;
 }
 
+.footer-buttons button:hover {
+  cursor: pointer;
+}
+
 
 /*==================CLASSLIST: ctaCLICK===================*/
 
