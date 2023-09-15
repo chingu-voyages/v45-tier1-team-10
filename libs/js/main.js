@@ -169,7 +169,7 @@ toggleFooter.addEventListener("click", toggleFooterFunction);
 function toggleFooterFunction() {
     footer.classList.toggle("footer-up");
     // contentDisplay.classList.toggle("footer-up");
-    document.body.classList.toggle("footer-up");
+    // document.body.classList.toggle("footer-up");
 
     
     // toggling the overlay causes problems when search button clicked
