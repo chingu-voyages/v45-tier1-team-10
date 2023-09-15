@@ -70,6 +70,7 @@ function toggleMapFunction() {
     
 }
 
+
 /*===================FOOTER TOGGLE======================*/
 
 const footer = document.querySelector("footer");
@@ -112,6 +113,19 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	attribution: 'Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
 }).addTo(map);
 
+const width = document.documentElement.clientWidth;
+
+// if(width < 650) {
+//     map.setView([51.505, -0.09], 2);
+// } THIS PART NEEDS WORK!!!
+
+
+window.addEventListener('resize', function(){
+
+    if (width < 650) {
+        map.setView([41.505, -0.09], 2);
+    }  
+});
 
 /*==================LOGIC FOR TABLE====================*/
 
