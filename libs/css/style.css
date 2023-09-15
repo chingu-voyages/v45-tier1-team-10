@@ -5,24 +5,21 @@
   padding: 0;
   box-sizing: border-box;
 }
- html {
-  height: 100%;
- }
+
 body {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
   background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
 }
 /* ====================HEADER======================== */
-/* .hero { 
-  height: 5vh;  
-  width: 80%; 
+.hero {
+  /* height: 5vh;  */
+  /* width: 80%; */
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
@@ -33,10 +30,9 @@ body {
   text-align: center;
   min-height: 80vh;
   margin-bottom: 0;
-} */
+}
 
 .project-title {
-  margin-top: 5%;
   font-size: 2.5rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -44,8 +40,7 @@ body {
 
 .opening-info {
   font-size: 1.4rem;
-  margin: 5% 0 3% 0;
-  /* margin-bottom: 1.5rem; */
+  margin-bottom: 1.5rem;
 }
 
 .cta-btn {
@@ -54,7 +49,6 @@ body {
   border-radius: 10px;
   width: 200px;
   height: 40px;
-  margin-top: 0.5%;
   font-size: 1.2rem;
   font-weight: 500;
   font-family: 'Orbitron', sans-serif;
@@ -214,8 +208,8 @@ button#mybtn, #tableMapBtn {
 }
 .table-container {
   width: 100%;
-   overflow-x: auto; 
-   overflow-y: hidden; 
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .results-table {
@@ -244,7 +238,7 @@ button#mybtn, #tableMapBtn {
 .table-body td {
   padding: 8px;
   border: 1px solid #fff;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .results-table tbody tr:hover {
@@ -285,8 +279,7 @@ button#mybtn, #tableMapBtn {
 footer {
   border-top: 2px solid;
   padding: 1rem;
-  margin-top: auto;
-  margin-bottom: 0;
+  margin-top: 2rem;
   position: relative;
   bottom: 0;
   width: 100%;
@@ -316,13 +309,13 @@ footer  option {
     text-align: center;
   }
   
-     footer .footer-buttons {  
+    /* footer .footer-buttons {  
       display: none;   
    } 
 
   footer .search-parameters {
     display: none;
-  }
+  }*/
   
  
 
