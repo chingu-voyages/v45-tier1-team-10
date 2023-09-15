@@ -14,7 +14,7 @@ body {
   max-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(/assets/images/bg.jpg);
+  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(/assets/images/bg.jpg);
 }
 
 .overlay {
@@ -283,6 +283,7 @@ footer .mode-toggles {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 footer .mode-toggles div {
@@ -349,7 +350,7 @@ footer  option {
 
 .centered-container select {
   padding: 10px;
-  margin: 0 5px;
+  margin: 0 15px;
   background-color: #000;
   color: #fff;
   border: 1px solid #fff;
@@ -365,7 +366,7 @@ footer  option {
 
 .footer-buttons button {
   padding: 10px;
-  margin: 0 5px;
+  margin: 0 15px;
   background-color: #FFDC73;
   color: #000;
   border: 1px solid #000;
@@ -407,5 +408,4 @@ footer  option {
 .footer-up .search-parameters, .footer-up .footer-buttons {  
   display: block;
 }
-
 

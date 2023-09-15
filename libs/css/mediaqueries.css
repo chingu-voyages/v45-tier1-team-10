@@ -38,20 +38,20 @@
         margin: 5px;
     }
 
-    .mode-toggles {
+    /* .mode-toggles {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
+    } */
 
     .night-day-mode , .footer-up-down, .table-map-mode {
         margin-bottom: 30px;
     }
 
-    .footer-buttons {
+    /* .footer-buttons {
         flex-direction: column;
         align-items: center;
-    }
+    } */
 
     .footer-buttons button {
         margin: 5px;
@@ -61,9 +61,6 @@
 /* ================SMALLER SMARTPHONES======== */
 
  @media screen and (max-width: 480px) { 
-    .hero {
-        padding-top: 1rem;
-    }
 
     .project-title {
         font-size: 1.5rem;
@@ -106,7 +103,58 @@
     .curr-page {
         margin: 5px;
     }
+
+    /*-----FOOTER-----*/
+
+    footer {
+        padding: 1rem .5rem;
+    }
+
+    footer .mode-toggles {
+        margin: 1rem 0;
+        justify-content: space-between;
+    }
+    
+    button#mybtn, #tableMapBtn {
+        width: 100px;
+        font-size: .7rem;
+        padding: 8px 20px 8px 5px;
+    }
+
+    .btn-circle {
+        width: 15px;
+        height: 15px;
+    }
+
+    footer .main-search {
+        width: 250px;
+        height: 35px;
+        margin: 25px auto;
+    }
+
+    footer .centered-container {
+        flex-wrap: wrap;
+        margin: 25px auto;
+    }
+
+    footer .centered-container select {
+        font-size: .8rem;
+        padding: 5px 10px;
+        margin: 10px;
+    }
+
+    footer .footer-buttons {
+        margin: 25px auto;
+    }
+
+    footer .footer-buttons button {
+        font-size: .8rem;
+        padding: 5px 10px;
+        margin: 10px;
+    }
+
 }
+
 
 
  
