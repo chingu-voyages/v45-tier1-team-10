@@ -459,22 +459,6 @@ function displayResultsMap() {
     
     markerCluster.clearLayers();
 
-    const screenWidth = document.documentElement.clientWidth;
-
-    if(screenWidth < 650) {
-        map.setView([35.505, -0.09], 3);
-    } else {
-        map.setView([41.505, -0.09], 2);
-    }
-
-
-    window.addEventListener('resize', function(){
-
-        if (screenWidth < 650) {
-            map.setView([35.505, -0.09], 3);
-        }  
-    });
-
     if(finalItems.length < 1) {
 
         alert("Apologies: No data to display, please refine your search.")
@@ -514,6 +498,22 @@ function displayResultsMap() {
                 map.addLayer(markerCluster);
 
     }
+
+    const screenWidth = document.documentElement.clientWidth;
+
+    if(screenWidth < 650) {
+        map.setView([35.505, -0.09], 3);
+    } else {
+        map.setView([41.505, -0.09], 2);
+    }
+
+
+    window.addEventListener('resize', function(){
+
+        if (screenWidth < 650) {
+            map.setView([35.505, -0.09], 3);
+        }  
+    });
 
 }
 
