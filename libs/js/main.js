@@ -54,6 +54,8 @@ toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
 
+    footer.classList.toggle("map-mode");
+
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
@@ -108,7 +110,7 @@ function daymode() {
 
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").fitWorld();
+let map = L.map("map").setView([41.505, -0.09], 1);
 
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -459,22 +461,6 @@ function displayResultsMap() {
     
     markerCluster.clearLayers();
 
-    const screenWidth = document.documentElement.clientWidth;
-
-    if(screenWidth < 650) {
-        map.setView([35.505, -0.09], 3);
-    } else {
-        map.setView([41.505, -0.09], 1);
-    }
-
-
-    window.addEventListener('resize', function(){
-
-        if (screenWidth < 650) {
-            map.setView([35.505, -0.09], 3);
-        }  
-    });
-
     if(finalItems.length < 1) {
 
         alert("Apologies: No data to display, please refine your search.")
@@ -514,6 +500,22 @@ function displayResultsMap() {
                 map.addLayer(markerCluster);
 
     }
+
+    const screenWidth = document.documentElement.clientWidth;
+
+    if(screenWidth < 650) {
+        map.setView([35.505, -0.09], 3);
+    } else {
+        map.setView([41.505, -0.09], 2);
+    }
+
+
+    window.addEventListener('resize', function(){
+
+        if (screenWidth < 650) {
+            map.setView([35.505, -0.09], 3);
+        }  
+    });
 
 }
 

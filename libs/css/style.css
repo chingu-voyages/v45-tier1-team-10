@@ -58,7 +58,7 @@ body {
   cursor: pointer;
 }
 
-/* =======================NIGHT DAY MODE */
+/* =======================NIGHT DAY MODE====================*/
 .night-day-mode {
   display: flex;
   align-items: center;
@@ -148,11 +148,11 @@ button#mybtn, #tableMapBtn {
 }
 
 .content-display #map {
-    height: 350px;
-    width: 600px;
+    height: 70vh;
+    width: 80vw;
     display: none;
     position: relative;
-    bottom: 2.3rem;
+    /* bottom: 2.3rem; */
     border: 2px solid #fff;
     border-radius: 5px;
 }
@@ -169,6 +169,15 @@ button#mybtn, #tableMapBtn {
   display: block;
   margin-top: 50px;
 }
+
+.map-mode #tableMapBtn .btn-circle {
+  left: 5px;
+  }
+
+  .map-mode #tableMapBtn {
+    text-align: end;
+    padding: 10px 5px 10px 10px;
+  }
 
 .map-mode .results-table, .map-mode .table-pagination {
   display: none;
