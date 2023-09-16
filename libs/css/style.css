@@ -185,10 +185,26 @@ button#mybtn, #tableMapBtn {
 
 .summary-metrics {
   border: 2px solid #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 1rem;
   display: none;
   margin: 20px 0;
+  background-color: #000;
+}
+
+.summary-metrics h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.summary-metrics p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.summary-metrics p:last-child {
+  font-style: italic;
+  margin-top: 1rem;
+  text-align: center;
 }
 .day-mode .summary-metrics {
   border: 2px solid #000;
