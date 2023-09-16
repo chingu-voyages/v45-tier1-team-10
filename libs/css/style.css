@@ -27,6 +27,13 @@ body {
 }
 /* ====================HEADER======================== */
 
+.opening-content {
+  text-align: center;
+  position: relative;
+  top: 15vh;
+  padding: 0 10rem;
+}
+
 .project-title {
   font-size: 2.5rem;
   text-transform: uppercase;
@@ -35,6 +42,7 @@ body {
 
 .opening-info {
   font-size: 1.4rem;
+  font-weight: 100;
   margin-bottom: 1.5rem;
 }
 
@@ -236,6 +244,10 @@ button#mybtn, #tableMapBtn {
   background-color: gray;
 }
 
+.day-mode .results-table tbody tr:hover {
+  background-color: #bedfff;
+}
+
 .table-pagination {
   text-align: center;
   margin: 20px 0s;
@@ -379,13 +391,6 @@ footer  option {
 .footer-buttons button:hover {
   cursor: pointer;
 }
-
-
-/*==================CLASSLIST: ctaCLICK===================*/
-
-/* .ctaClick .summary-metrics-btn {
-  display: block;
-} */
 
 
 /*===================CLASSLIST: FOOTER-UP==================*/

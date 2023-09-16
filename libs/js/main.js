@@ -25,6 +25,7 @@ window.onload = function() {
 /*====================GET STARTED========================*/
 
 const brandLogo = document.querySelector(".project-title");
+const openingContent = document.querySelector(".opening-content");
 const openingInfo = document.querySelector(".opening-info");
 const ctaButton = document.querySelector(".cta-btn");
 const summaryMetrics = document.querySelector(".summary-metrics");
@@ -34,15 +35,16 @@ const contentDisplay = document.querySelector(".content-display");
 
 
 ctaButton.addEventListener("click", () => {
-    ctaButton.style.display = "none";
-    openingInfo.style.display = "none";
+
+    openingContent.style.display = "none";
     resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
     summaryMetricsBtn.style.display = "block";
-    // contentDisplay.classList.toggle("ctaClick");
+
       // Initial render
     updatePagination();
     renderTable(currentPage);
+    
 })
 
 /*========================MAP MODE==================*/
