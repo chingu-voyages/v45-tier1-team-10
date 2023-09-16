@@ -58,7 +58,7 @@ body {
   cursor: pointer;
 }
 
-/* =======================NIGHT DAY MODE */
+/* =======================NIGHT DAY MODE====================*/
 .night-day-mode {
   display: flex;
   align-items: center;
@@ -169,6 +169,15 @@ button#mybtn, #tableMapBtn {
   display: block;
   margin-top: 50px;
 }
+
+.map-mode #tableMapBtn .btn-circle {
+  left: 5px;
+  }
+
+  .map-mode #tableMapBtn {
+    text-align: end;
+    padding: 10px 5px 10px 10px;
+  }
 
 .map-mode .results-table, .map-mode .table-pagination {
   display: none;

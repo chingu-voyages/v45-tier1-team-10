@@ -54,6 +54,8 @@ toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
 
+    footer.classList.toggle("map-mode");
+
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
