@@ -108,7 +108,7 @@ function daymode() {
 
 /*=======================INSTALL MAP===================== */
 
-let map = L.map("map").fitWorld();
+let map = L.map("map").setView([41.505, -0.09], 1);
 
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -464,7 +464,7 @@ function displayResultsMap() {
     if(screenWidth < 650) {
         map.setView([35.505, -0.09], 3);
     } else {
-        map.setView([41.505, -0.09], 1);
+        map.setView([41.505, -0.09], 2);
     }
 
 
