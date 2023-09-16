@@ -27,6 +27,13 @@ body {
 }
 /* ====================HEADER======================== */
 
+.opening-content {
+  text-align: center;
+  position: relative;
+  top: 15vh;
+  padding: 0 10rem;
+}
+
 .project-title {
   font-size: 2.5rem;
   text-transform: uppercase;
@@ -35,6 +42,7 @@ body {
 
 .opening-info {
   font-size: 1.4rem;
+  font-weight: 100;
   margin-bottom: 1.5rem;
 }
 
@@ -82,6 +90,7 @@ button#mybtn, #tableMapBtn {
 .day-mode .btn-circle {
   background-color: #0084FF;
 }
+
 .day-mode #mybtn .btn-circle {
   left: 5px;
   }
@@ -91,13 +100,12 @@ button#mybtn, #tableMapBtn {
     padding: 10px 10px 10px 10px;
   }
 .day-mode {
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url(/assets/images/day-bg.avif);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: #000;
 }
-.day-mode footer,
 .day-mode #mybtn,
 .day-mode #footerBtn,
 .day-mode #tableMapBtn,
@@ -106,10 +114,9 @@ button#mybtn, #tableMapBtn {
   background: #fff; 
   color: #000;
   border: 1.5px solid #000;
-  border-radius: 10px;
 }
 .day-mode footer { 
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-color: #bedfff;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -137,11 +144,12 @@ button#mybtn, #tableMapBtn {
   height: 300px;
   width: 800px;
   border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .content-display #map {
-    height: 300px;
-    width: 800px;
+    height: 350px;
+    width: 600px;
     display: none;
     position: relative;
     bottom: 2.3rem;
@@ -176,6 +184,9 @@ button#mybtn, #tableMapBtn {
 .day-mode .summary-metrics {
   border: 2px solid #000;
   border-radius: 5px;
+}
+.day-mode #map {
+  border-color: #000;
 }
 
 .summary-metrics p {
@@ -233,6 +244,10 @@ button#mybtn, #tableMapBtn {
 
 .results-table tbody tr:hover {
   background-color: gray;
+}
+
+.day-mode .results-table tbody tr:hover {
+  background-color: #bedfff;
 }
 
 .table-pagination {
@@ -378,13 +393,6 @@ footer  option {
 .footer-buttons button:hover {
   cursor: pointer;
 }
-
-
-/*==================CLASSLIST: ctaCLICK===================*/
-
-/* .ctaClick .summary-metrics-btn {
-  display: block;
-} */
 
 
 /*===================CLASSLIST: FOOTER-UP==================*/

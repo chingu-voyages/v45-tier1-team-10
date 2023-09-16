@@ -25,6 +25,7 @@ window.onload = function() {
 /*====================GET STARTED========================*/
 
 const brandLogo = document.querySelector(".project-title");
+const openingContent = document.querySelector(".opening-content");
 const openingInfo = document.querySelector(".opening-info");
 const ctaButton = document.querySelector(".cta-btn");
 const summaryMetrics = document.querySelector(".summary-metrics");
@@ -34,15 +35,16 @@ const contentDisplay = document.querySelector(".content-display");
 
 
 ctaButton.addEventListener("click", () => {
-    ctaButton.style.display = "none";
-    openingInfo.style.display = "none";
+
+    openingContent.style.display = "none";
     resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
     summaryMetricsBtn.style.display = "block";
-    // contentDisplay.classList.toggle("ctaClick");
+
       // Initial render
     updatePagination();
     renderTable(currentPage);
+
 })
 
 /*========================MAP MODE==================*/
@@ -53,7 +55,7 @@ toggleMap.addEventListener("click", toggleMapFunction);
 function toggleMapFunction() {
 
         if(!contentDisplay.classList.contains("map-mode")) {
-            tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
+            tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
             summaryMetrics.style.display = "none";
         } else {
@@ -69,6 +71,7 @@ function toggleMapFunction() {
         map.invalidateSize();
     
 }
+
 
 /*===================FOOTER TOGGLE======================*/
 
@@ -455,7 +458,22 @@ const markerCluster = L.markerClusterGroup({
 function displayResultsMap() {
     
     markerCluster.clearLayers();
-    map.setView([41.505, -0.09], 1);
+
+    const screenWidth = document.documentElement.clientWidth;
+
+    if(screenWidth < 650) {
+        map.setView([35.505, -0.09], 3);
+    } else {
+        map.setView([41.505, -0.09], 1);
+    }
+
+
+    window.addEventListener('resize', function(){
+
+        if (screenWidth < 650) {
+            map.setView([35.505, -0.09], 3);
+        }  
+    });
 
     if(finalItems.length < 1) {
 

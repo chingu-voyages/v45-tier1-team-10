@@ -1,108 +1,36 @@
 /* ==========RESPONSIVE STYLES=========== */
 
-/* ==========TABLETS AND SMALLER SCREENS */
-
-@media screen and (max-width: 768px) {
-    .hero {
-       padding-top: 2rem;
+@media(max-width: 650px) {
+    .opening-content {
+        padding: 0 5rem;
     }
 
-    .project-title {
-        font-size: 2rem;
-    }
-
-    .opening-info {
-        font-size: 1rem;
-    }
-
-    .cta-btn {
-        font-size: 0.8rem;
-    }
-    .table-container {
-        max-width: 768px;
-        overflow-x: auto;
-    }
-    .results-table{  
-        width: 100%;
-    }
-    
-    .table-pagination {
-        text-align: center;
-        margin: 20px 0;
-    }
-
-    .table-pagination button {
-        margin: 5px;
-    }
-    .curr-page {
-        margin: 5px;
-    }
-
-    /* .mode-toggles {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    } */
-
-    .night-day-mode , .footer-up-down, .table-map-mode {
-        margin-bottom: 30px;
-    }
-
-    /* .footer-buttons {
-        flex-direction: column;
-        align-items: center;
-    } */
-
-    .footer-buttons button {
-        margin: 5px;
+    .content-display #map {
+        border: none;
+        border-radius: 0;
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
     }
 }
 
-/* ================SMALLER SMARTPHONES======== */
-
  @media screen and (max-width: 480px) { 
 
-    .project-title {
-        font-size: 1.5rem;
+    /*-----HEADER-----*/
+
+    .opening-content {
+        /* top: 5vh; */
+        padding: 0 1rem;
     }
 
-    .opening-info {
-        font-size: 0.9rem;
+    .opening-content .project-title {
+        font-size: 2rem;
     }
 
-    .cta-btn {
-        font-size: 0.7rem;
+    .opening-content .opening-info {
+        font-size: 1rem;
     }
 
-      .results-table th, .results-table td {  
-         font-size: 0.7rem;  
-     }   
-
-    .table-container { 
-        max-width: 480px; 
-        overflow-x: auto;
-    }
-
-    .results-table {
-        width: 100%;
-    }
-    .table-head th,
-    .table-body td {
-        width: auto;
-        white-space: nowrap;
-        font-size: 12px;
-    }
-    .table-pagination {
-        text-align: center;
-    }
-
-    .table-container button {
-        margin: 5px;
-    }
-
-    .curr-page {
-        margin: 5px;
-    }
 
     /*-----FOOTER-----*/
 
