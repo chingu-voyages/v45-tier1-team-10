@@ -44,7 +44,7 @@ ctaButton.addEventListener("click", () => {
       // Initial render
     updatePagination();
     renderTable(currentPage);
-    
+
 })
 
 /*========================MAP MODE==================*/
@@ -55,7 +55,7 @@ toggleMap.addEventListener("click", toggleMapFunction);
 function toggleMapFunction() {
 
         if(!contentDisplay.classList.contains("map-mode")) {
-            tableMapBtn.innerHTML = `<span class="btn-circle"></span> TABLE MODE`;
+            tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
             summaryMetrics.style.display = "none";
         } else {
