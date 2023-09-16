@@ -91,13 +91,12 @@ button#mybtn, #tableMapBtn {
     padding: 10px 10px 10px 10px;
   }
 .day-mode {
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url(/assets/images/day-bg.avif);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: #000;
 }
-.day-mode footer,
 .day-mode #mybtn,
 .day-mode #footerBtn,
 .day-mode #tableMapBtn,
@@ -106,10 +105,9 @@ button#mybtn, #tableMapBtn {
   background: #fff; 
   color: #000;
   border: 1.5px solid #000;
-  border-radius: 10px;
 }
 .day-mode footer { 
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(/assets/images/day-bg.avif);
+  background-color: #bedfff;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -176,6 +174,9 @@ button#mybtn, #tableMapBtn {
 .day-mode .summary-metrics {
   border: 2px solid #000;
   border-radius: 5px;
+}
+.day-mode #map {
+  border-color: #000;
 }
 
 .summary-metrics p {
