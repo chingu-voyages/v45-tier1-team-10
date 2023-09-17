@@ -140,8 +140,8 @@ button#mybtn, #tableMapBtn {
 
 .content-display .results-table {
   border: 2px solid;
-  margin: 2rem;
-  height: 300px;
+  margin: auto;
+  height: 100%;
   width: 100%;
   border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
@@ -162,7 +162,7 @@ button#mybtn, #tableMapBtn {
 }
 
 .content-display .results-table {
-  margin: 1rem;
+  margin: auto;
 }
 
 .map-mode #map {
@@ -255,6 +255,7 @@ button#mybtn, #tableMapBtn {
 .day-mode .table-body tr,
 .day-mode .table-body td {
   border: 1px solid #000;
+  
 }
 
 .table-body tr {
