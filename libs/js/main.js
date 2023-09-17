@@ -481,15 +481,16 @@ function displayResultsMap() {
                     });
                 },
                 onEachFeature: function (feature, layer) {
+                    console.log(typeof feature.properties.mass);
                     const popupContent = `
                         <ul class="popup-list" style="list-style: none;">
                             <li class="popup-list-item"><strong>Id:</strong> ${feature.properties.id}</li>
                             <li class="popup-list-item"><strong>Name:</strong> ${feature.properties.name}</li>
                             <li class="popup-list-item"><strong>Record Class:</strong> ${feature.properties.recclass}</li>
-                            <li><strong>Mass (g):</strong> ${feature.properties.mass}</li>
+                            <li><strong>Mass (g):</strong> ${Number(feature.properties.mass).toLocaleString("en-GB")}</li>
                             <li><strong>Year of Impact:</strong> ${feature.properties.year}</li>
-                            <li><strong>Latitude:</strong> ${feature.geometry.coordinates[1]}</li>
-                            <li><strong>Longitude:</strong> ${feature.geometry.coordinates[0]}</li>
+                            <li><strong>Latitude:</strong> ${feature.geometry.coordinates[1].toFixed(3)}</li>
+                            <li><strong>Longitude:</strong> ${feature.geometry.coordinates[0].toFixed(3)}</li>
                         </ul>
                     `;
                     layer.bindPopup(popupContent);
