@@ -159,9 +159,7 @@ function renderTable(page) {
         const newRow = document.createElement("tr");
     
         newRow.innerHTML = `
-            <td>${item.properties.id}</td>
             <td>${item.properties.name}</td>
-            <td>${item.properties.recclass}</td>
             <td>${item.properties.mass}</td>
             <td>${item.properties.year}</td>
             <td>${item.geometry.coordinates[1]}</td>
