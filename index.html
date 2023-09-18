@@ -27,11 +27,12 @@
     </div>
 
     <section class="content-display">
-
+        <div style="overflow-x:hidden;">
         <div class="table-container">
             <table class="results-table">
                 <thead class="table-head">
                     <tr>
+
                         <th class="id-col">ID</th>
                         <th class="name-col">Name</th>
                         <th class="recclass-col">Record Class</th>
@@ -39,6 +40,13 @@
                         <th class="year-col">Year</th>
                         <th class="lat-col">Latitude</th>
                         <th class="long-col">Longitude</th>
+
+                        <th>Name</th>
+                        <th>Mass</th>
+                        <th>Year</th>
+                        <th>Lat</th>
+                        <th>Long</th>
+
                     </tr>
                 </thead>
                 <tbody class="table-body">
@@ -48,9 +56,10 @@
                 <button class="prev-page">Prev</button>
                 <span class="curr-page">Page 1</span>
                 <button class="next-page">Next</button>
+               
             </div>
         </div>
-
+    </div>
         <div id="map" class="leaflet-map"></div>
 
         <div class="summary-metrics">
