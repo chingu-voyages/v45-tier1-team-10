@@ -116,7 +116,16 @@
         font-size: .8rem;
         margin: 0 5px;
     }
+    .summary-metrics p {
+        font-size: .9rem;
+        margin: .5rem;
+    }
 }
 
+@media(max-width: 300px) {
+    .summary-metrics {
+        padding: 1rem 0;
+    }
+}
 
  
