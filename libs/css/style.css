@@ -13,7 +13,7 @@ body {
   align-items: center;
   max-height: 100vh;
   font-family: 'Orbitron', sans-serif;
-  color: #fff;
+  color: #f5f5f5;
   background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),url('/assets/images/nightmode-pexels-stein-egil-liland.jpg');
 }
 
@@ -67,10 +67,10 @@ button#mybtn, #tableMapBtn {
   position: relative;
   width: 130px;
   padding: 10px 20px 10px 5px;
-  background-color: black;
-  color: #fff;
+  background: linear-gradient(135deg, #010101, #000b49);
+  color: #f5f5f5;
   font-weight: bold;
-  border: 1.5px solid #fff;
+  border: 1.5px solid #f5f5f5;
   border-radius: 10px;
   cursor: pointer;
   /* margin-left: 20px; */
@@ -104,16 +104,16 @@ button#mybtn, #tableMapBtn {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: #000;
+  color: #010101;
 }
 .day-mode #mybtn,
 .day-mode #footerBtn,
 .day-mode #tableMapBtn,
 .day-mode .main-search,
 .day-mode .centered-container select{
-  background: #fff; 
-  color: #000;
-  border: 1.5px solid #000;
+  background: #f5f5f5; 
+  color: #010101;
+  border: 1.5px solid #010101;
 }
 .day-mode footer { 
   background-color: #bedfff;
@@ -126,12 +126,12 @@ button#mybtn, #tableMapBtn {
 .day-mode .summary-metrics-btn {
   background: #0084FF;
   border: none;
-  color: #fff;
+  color: #f5f5f5;
   font-weight: bold;
 }
 
 .day-mode .table-pagination button {
-  background: #fff;
+  background: #f5f5f5;
 }
 /*========================CONTENT DISPLAY==================*/
 .content-display {
@@ -153,7 +153,7 @@ button#mybtn, #tableMapBtn {
     display: none;
     position: relative;
     /* bottom: 2.3rem; */
-    border: 2px solid #fff;
+    border: 2px solid #f5f5f5;
     border-radius: 5px;
 }
 
@@ -184,12 +184,12 @@ button#mybtn, #tableMapBtn {
 }
 
 .summary-metrics {
-  border: 2px solid #fff;
+  border: 2px solid #f5f5f5;
   border-radius: 10px;
   padding: 1rem;
   display: none;
   margin: 20px 0;
-  background-color: #000;
+  background-color: #010101;
 }
 
 .summary-metrics h2 {
@@ -207,11 +207,11 @@ button#mybtn, #tableMapBtn {
   text-align: center;
 }
 .day-mode .summary-metrics {
-  border: 2px solid #000;
+  border: 2px solid #010101;
   border-radius: 5px;
 }
 .day-mode #map {
-  border-color: #000;
+  border-color: #010101;
 }
 
 .summary-metrics p {
@@ -232,43 +232,43 @@ button#mybtn, #tableMapBtn {
   cursor: pointer;
   margin: 30px auto;
 }
-/* .table-container {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-} */
 
 .results-table {
   width: 100%;
   height: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  background-color: rgb(1, 1, 1, .5);
 }
 
 .table-head th {
   text-align: left;
   padding: 8px;
-  border: 1px solid #fff;
+  border: 1px solid #f5f5f5;
 }
 
 .day-mode .table-head th,
 .day-mode .table-body tr,
 .day-mode .table-body td {
-  border: 1px solid #000;
+  border: 1px solid #010101;
 }
 
 .table-body tr {
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .table-body td {
   padding: 8px;
-  border: 1px solid #fff;
+  border: 1px solid #f5f5f5;
   overflow: hidden;
 }
 
 .results-table tbody tr:hover {
-  background-color: gray;
+  background-color: #000b49;
+}
+
+.day-mode .results-table {
+  background: rgb(190, 223, 255, .5);
 }
 
 .day-mode .results-table tbody tr:hover {
@@ -283,20 +283,21 @@ button#mybtn, #tableMapBtn {
 
 .prev-page,
 .next-page {
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
+  background: linear-gradient(135deg, #010101, #000b49);
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   padding: 10px;
   border-radius: 10px;
   margin: 0 10px;
   font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
 }
 
 .day-mode .prev-page,
 .day-mode .next-page {
   background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  color: #000;
-  border: 1.5px solid #000;
+  color: #010101;
+  border: 1.5px solid #010101;
   border-radius: 10px;
 }
 
@@ -350,11 +351,11 @@ footer  option {
     width: 30px;
     height: 50px;
     padding: 10px 20px 10px 5px;
-    background-color: black;
-    color: #fff;
+    background: linear-gradient(135deg, #010101, #000b49);
+    color: #f5f5f5;
     font-weight: bold;
     font-size: 2rem;
-    border: 1.5px solid #fff;
+    border: 1.5px solid #f5f5f5;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -372,9 +373,9 @@ footer  option {
   height: 50px;
   margin: 50px auto;
   display: block;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
+  background-color: #010101;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   border-radius: 10px;
   padding: 10px 30px;
   font-size: 1rem;
@@ -391,9 +392,9 @@ footer  option {
 .centered-container select {
   padding: 10px;
   margin: 0 15px;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
+  background-color: #010101;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   border-radius: 10px;
   font-size: 1rem;
   font-family: 'Orbitron', sans-serif;
@@ -408,8 +409,8 @@ footer  option {
   padding: 10px;
   margin: 0 15px;
   background-color: #FFDC73;
-  color: #000;
-  border: 1px solid #000;
+  color: #010101;
+  border: 1px solid #010101;
   border-radius: 10px;
   font-size: 0.9rem;
   font-family: 'Orbitron', sans-serif;
