@@ -171,11 +171,6 @@ function renderTable(page) {
             <td class="lat-data">${item.geometry.coordinates[1].toFixed(3)}</td>
             <td class="long-data">${item.geometry.coordinates[0].toFixed(3)}</td>
 
-            <td>${item.properties.name}</td>
-            <td>${item.properties.mass}</td>
-            <td>${item.properties.year}</td>
-            <td>${item.geometry.coordinates[1]}</td>
-            <td>${item.geometry.coordinates[0]}</td>
 
         `
         resultsTableBody.append(newRow);
@@ -638,81 +633,6 @@ summaryMetrics.addEventListener("click", () => {
     
 })
 
-// function chartLabels() {
-    
-//     const years = finalItems.map(item => item.properties.year);
-
-//     const minYear = Math.min(...years);
-//     const maxYear = Math.max(...years);
-
-//     const yearRange = maxYear - minYear;
-
-//     const intervalSize = Math.floor(yearRange / 9);
-
-//     const chartYears = Array.from({ length: 9 }, (_, index) => minYear + index * intervalSize);
-//     console.log(minYear);
-
-//     chartYears.push(maxYear);
-
-//     strikesByYearCalc(chartYears);
-// }
-
-// function strikesByYearCalc(years) {
-//     const strikesByYear = Array(years.length).fill(0);
-
-//     finalItems.forEach(item => {
-//         const yearIndex = years.indexOf(item.properties.year);
-//         if (yearIndex !== -1) {
-//             strikesByYear[yearIndex]++;
-//         }
-//     });
-    
-//     chartFunc(years, strikesByYear);
-// }
-
-
-// function chartFunc(years, strikesByYear) {
-
-//     console.log(years);
-//     console.log(strikesByYear);
-
-//     const chart = new Chart(ctx, {
-//       type: 'line',
-//       data: {
-//         labels: years,
-//         datasets: [{
-//           label: 'Strikes by Year',
-//           data: strikesByYear,
-//           backgroundColor: ["#FFDC73"],
-//         }]
-//       },
-//       options: {
-//         scales: {
-//           xAxes: [{
-//             display: false,
-//             barPercentage: 1.3,
-//             ticks: {
-//               max: 3,
-//               maxRotation: 90,
-//               minRotation: 90,
-//             }
-//           }, {
-//             display: true,
-//             ticks: {
-//               autoSkip: false,
-//               max: 4,
-//             }
-//           }],
-//           yAxes: [{
-//             ticks: {
-//               beginAtZero: true
-//             }
-//           }]
-//         }
-//       }
-//     });
-
-// }
 
 
 
