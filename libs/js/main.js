@@ -160,13 +160,13 @@ function renderTable(page) {
         const newRow = document.createElement("tr");
     
         newRow.innerHTML = `
-            <td>${item.properties.id}</td>
-            <td>${item.properties.name}</td>
-            <td>${item.properties.recclass}</td>
-            <td>${item.properties.mass}</td>
-            <td>${item.properties.year}</td>
-            <td>${item.geometry.coordinates[1].toFixed(3)}</td>
-            <td>${item.geometry.coordinates[0].toFixed(3)}</td>
+            <td class="id-data">${item.properties.id}</td>
+            <td class="name-data">${item.properties.name}</td>
+            <td class="recclass-data">${item.properties.recclass}</td>
+            <td class="mass-data">${item.properties.mass}</td>
+            <td class="year-data">${item.properties.year}</td>
+            <td class="lat-data">${item.geometry.coordinates[1].toFixed(3)}</td>
+            <td class="long-data">${item.geometry.coordinates[0].toFixed(3)}</td>
         `
         resultsTableBody.append(newRow);
         
