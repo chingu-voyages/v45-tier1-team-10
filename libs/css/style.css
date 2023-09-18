@@ -13,8 +13,8 @@ body {
   align-items: center;
   max-height: 100vh;
   font-family: 'Orbitron', sans-serif;
-  color: #fff;
-  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(/assets/images/bg.jpg);
+  color: #f5f5f5;
+  background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),url('/assets/images/nightmode-pexels-stein-egil-liland.jpg');
 }
 
 .overlay {
@@ -58,93 +58,89 @@ body {
   cursor: pointer;
 }
 
-/* =======================NIGHT DAY MODE====================*/
-.night-day-mode {
-  display: flex;
-  align-items: center;
-}
-button#mybtn, #tableMapBtn {
-  position: relative;
-  width: 130px;
-  padding: 10px 20px 10px 5px;
-  background-color: black;
-  color: #fff;
-  font-weight: bold;
-  border: 1.5px solid #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  /* margin-left: 20px; */
-}
-.btn-circle {
-  /* display: inline-block; */
-  float: left; 
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-color: #FFDC73;
-  border-radius: 50%;
-}
-.day-mode .btn-circle {
-  background-color: #0084FF;
-}
-
-.day-mode #mybtn .btn-circle {
-  left: 5px;
-  }
-
-  .day-mode button#mybtn {
-    text-align: end;
-    padding: 10px 10px 10px 10px;
-  }
-.day-mode {
-  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url(/assets/images/day-bg.avif);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #000;
-}
-.day-mode #mybtn,
-.day-mode #footerBtn,
-.day-mode #tableMapBtn,
-.day-mode .main-search,
-.day-mode .centered-container select{
-  background: #fff; 
-  color: #000;
-  border: 1.5px solid #000;
-}
-.day-mode footer { 
-  background-color: #bedfff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-} 
-.day-mode .cta-btn,
-.day-mode .footer-buttons button,
-.day-mode .summary-metrics-btn {
-  background: #0084FF;
-  border: none;
-  color: #fff;
-  font-weight: bold;
-}
-
-.day-mode .table-pagination button {
-  background: #fff;
-}
 /*========================CONTENT DISPLAY==================*/
-.content-display {
-  margin-top: 0;
+
+.content-display .table-container {
+  display: none;
+  height: 60vh;
+  width: 80vw;
+  margin: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 2px solid;
+  margin: 3rem auto 0;
+  background-color: rgb(1, 1, 1, .5);
+  position: relative;
+}
+
+.content-display .table-container::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(1, 1, 1, .5);
+}
+
+.content-display .table-container::-webkit-scrollbar-thumb {
+  background-color: #f5f5f5;
 }
 
 .content-display .results-table {
+
+
   border: 2px solid;
   margin: auto;
   height: 100%;
   width: 100%;
   border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+
+.table-head th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #f5f5f5;
+}
+
+.table-body tr {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.table-body td {
+  padding: 8px;
+  border: 1px solid #f5f5f5;
+  overflow: hidden;
+
+.content-display .results-table {
+  margin: auto;
+
+}
+
+.results-table tbody tr:hover {
+  background-color: #000b49;
+}
+
+.table-pagination {
+  text-align: center;
+  margin: 20px 0;
+  text-align: fixed;
+}
+
+.prev-page,
+.next-page {
+  background: linear-gradient(135deg, #010101, #000b49);
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 10px;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+}
+
+.curr-page {
+  font-size: 16px;
+  margin: 0 10px;
 }
 
 .content-display #map {
@@ -152,44 +148,17 @@ button#mybtn, #tableMapBtn {
     width: 80vw;
     display: none;
     position: relative;
-    /* bottom: 2.3rem; */
-    border: 2px solid #fff;
+    border: 2px solid #f5f5f5;
     border-radius: 5px;
 }
 
-.content-display .table-container {
-  display: none;
-}
-
-.content-display .results-table {
-  margin: auto;
-}
-
-.map-mode #map {
-  display: block;
-  margin-top: 50px;
-}
-
-.map-mode #tableMapBtn .btn-circle {
-  left: 5px;
-  }
-
-  .map-mode #tableMapBtn {
-    text-align: end;
-    padding: 10px 5px 10px 10px;
-  }
-
-.map-mode .results-table, .map-mode .table-pagination {
-  display: none;
-}
-
 .summary-metrics {
-  border: 2px solid #fff;
+  border: 2px solid #f5f5f5;
   border-radius: 10px;
   padding: 1rem;
   display: none;
   margin: 20px 0;
-  background-color: #000;
+  background-color: #010101;
 }
 
 .summary-metrics h2 {
@@ -205,13 +174,6 @@ button#mybtn, #tableMapBtn {
   font-style: italic;
   margin-top: 1rem;
   text-align: center;
-}
-.day-mode .summary-metrics {
-  border: 2px solid #000;
-  border-radius: 5px;
-}
-.day-mode #map {
-  border-color: #000;
 }
 
 .summary-metrics p {
@@ -231,7 +193,8 @@ button#mybtn, #tableMapBtn {
   font-family: 'Orbitron', sans-serif;
   cursor: pointer;
   margin: 30px auto;
-}
+
+
 /* .table-container {
   width: 100%;
   overflow-x: auto;
@@ -282,29 +245,8 @@ button#mybtn, #tableMapBtn {
   text-align: fixed;
 }
 
-.prev-page,
-.next-page {
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin: 0 10px;
-  font-family: 'Orbitron', sans-serif;
-}
 
-.day-mode .prev-page,
-.day-mode .next-page {
-  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  color: #000;
-  border: 1.5px solid #000;
-  border-radius: 10px;
-}
 
-.curr-page {
-  font-size: 16px;
-  margin: 0 10px;
-}
 
 /*=========================FOOTER========================*/
 footer {
@@ -351,75 +293,38 @@ footer  option {
     width: 30px;
     height: 50px;
     padding: 10px 20px 10px 5px;
-    background-color: black;
-    color: #fff;
+    background: linear-gradient(135deg, #010101, #000b49);
+    color: #f5f5f5;
     font-weight: bold;
     font-size: 2rem;
-    border: 1.5px solid #fff;
+    border: 1.5px solid #f5f5f5;
     border-radius: 10px;
     cursor: pointer;
 }
 
-
-
-/* ======================SEARCH PARAMETERS========================= */
-
-.search-parameters, .footer-buttons {  
-  display: none;
-}
-
-.main-search {
-  width: 300px;
-  height: 50px;
-  margin: 50px auto;
-  display: block;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
+button#mybtn, #tableMapBtn {
+  position: relative;
+  width: 130px;
+  padding: 10px 20px 10px 5px;
+  background: linear-gradient(135deg, #010101, #000b49);
+  color: #f5f5f5;
+  font-weight: bold;
+  border: 1.5px solid #f5f5f5;
   border-radius: 10px;
-  padding: 10px 30px;
-  font-size: 1rem;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.centered-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 50px auto;
-} 
-
-.centered-container select {
-  padding: 10px;
-  margin: 0 15px;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.footer-buttons {
- text-align: center;
- margin: 50px;
-} 
-
-.footer-buttons button {
-  padding: 10px;
-  margin: 0 15px;
-  background-color: #FFDC73;
-  color: #000;
-  border: 1px solid #000;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.footer-buttons button:hover {
   cursor: pointer;
 }
 
+.btn-circle {
+  float: left; 
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #FFDC73;
+  border-radius: 50%;
+}
 
 /*===================CLASSLIST: FOOTER-UP==================*/
 
@@ -443,3 +348,179 @@ footer  option {
   display: block;
 }
 
+
+/* ======================SEARCH PARAMETERS========================= */
+
+.search-parameters, .footer-buttons {  
+  display: none;
+}
+
+.main-search {
+  width: 300px;
+  height: 50px;
+  margin: 50px auto;
+  display: block;
+  background-color: #010101;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px auto;
+} 
+
+.centered-container select {
+  padding: 10px;
+  margin: 0 15px;
+  background-color: #010101;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.footer-buttons {
+ text-align: center;
+ margin: 50px;
+} 
+
+.footer-buttons button {
+  padding: 10px;
+  margin: 0 15px;
+  background-color: #FFDC73;
+  color: #010101;
+  border: 1px solid #010101;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.footer-buttons button:hover {
+  cursor: pointer;
+}
+
+
+/* =======================NIGHT DAY MODE====================*/
+.night-day-mode {
+  display: flex;
+  align-items: center;
+}
+
+.day-mode .table-container::-webkit-scrollbar {
+  background-color: #010101;
+}
+
+.day-mode .table-container::-webkit-scrollbar-thumb {
+  background-color: #bedfff;
+}
+
+.day-mode .btn-circle {
+  background-color: #0084FF;
+}
+
+.day-mode #mybtn .btn-circle {
+  left: 5px;
+  }
+
+.day-mode button#mybtn {
+  text-align: end;
+  padding: 10px 10px 10px 10px;
+}
+
+.day-mode {
+  background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.1)),url('/assets/images/daymode-pexels-eberhard-grossgasteiger.jpg');
+  background-position: center top;
+  color: #010101;
+}
+
+.day-mode #mybtn,
+.day-mode #footerBtn,
+.day-mode #tableMapBtn,
+.day-mode .main-search,
+.day-mode .centered-container select{
+  background: #f5f5f5; 
+  color: #010101;
+  border: 1.5px solid #010101;
+}
+.day-mode footer { 
+  background-color: #bedfff;
+  /* background-size: cover; */
+  background-position: center;
+  background-repeat: no-repeat;
+} 
+.day-mode .cta-btn,
+.day-mode .footer-buttons button,
+.day-mode .summary-metrics-btn {
+  background: #0084FF;
+  border: none;
+  color: #f5f5f5;
+  font-weight: bold;
+}
+
+.day-mode .table-pagination button {
+  background: #f5f5f5;
+}
+
+.day-mode .summary-metrics {
+  border: 2px solid #010101;
+  border-radius: 5px;
+}
+.day-mode #map {
+  border-color: #010101;
+}
+
+.day-mode .prev-page,
+.day-mode .next-page {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  color: #010101;
+  border: 1.5px solid #010101;
+  border-radius: 10px;
+}
+
+.day-mode .table-container {
+  background: rgb(190, 223, 255, .1);
+}
+
+.day-mode .results-table tbody tr:hover {
+  background-color: #bedfff;
+}
+
+
+.day-mode .table-head th,
+.day-mode .table-body tr,
+.day-mode .table-body td {
+  border: 1px solid #010101;
+}
+
+.day-mode .summary-metrics {
+  background-color: #bedfff;
+}
+
+
+/* =======================TABLE MAP MODE====================*/
+
+.map-mode #map {
+  display: block;
+  margin-top: 50px;
+}
+
+.map-mode #tableMapBtn .btn-circle {
+  left: 5px;
+  }
+
+.map-mode #tableMapBtn {
+  text-align: end;
+  padding: 10px 5px 10px 10px;
+}
+
+.map-mode .results-table, .map-mode .table-pagination {
+  display: none;
+}

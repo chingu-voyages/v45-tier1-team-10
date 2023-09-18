@@ -1,7 +1,6 @@
 /*======================WINDOW ONLOAD GEOJSON VERSION===================*/
 let csvResult = null;
 let finalItems = null;
-let resultsTableContainer = null;
 let meteoriteData = null;
 
 window.onload = function() {
@@ -32,12 +31,13 @@ const summaryMetrics = document.querySelector(".summary-metrics");
 const summaryMetricsBtn = document.querySelector(".summary-metrics-btn");
 const leafletMap = document.querySelector(".leaflet-map");
 const contentDisplay = document.querySelector(".content-display");
+const resultsTableContainer = document.querySelector(".table-container");
+
 
 
 ctaButton.addEventListener("click", () => {
 
     openingContent.style.display = "none";
-    resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
     summaryMetricsBtn.style.display = "block";
 
@@ -54,12 +54,15 @@ toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
 
+    openingContent.style.display = "none";
+
     footer.classList.toggle("map-mode");
 
         if(!contentDisplay.classList.contains("map-mode")) {
             tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
             summaryMetrics.style.display = "none";
+            resultsTableContainer.style.display = "none";
         } else {
             tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "block";
@@ -159,11 +162,21 @@ function renderTable(page) {
         const newRow = document.createElement("tr");
     
         newRow.innerHTML = `
+
+            <td class="id-data">${item.properties.id}</td>
+            <td class="name-data">${item.properties.name}</td>
+            <td class="recclass-data">${item.properties.recclass}</td>
+            <td class="mass-data">${item.properties.mass}</td>
+            <td class="year-data">${item.properties.year}</td>
+            <td class="lat-data">${item.geometry.coordinates[1].toFixed(3)}</td>
+            <td class="long-data">${item.geometry.coordinates[0].toFixed(3)}</td>
+
             <td>${item.properties.name}</td>
             <td>${item.properties.mass}</td>
             <td>${item.properties.year}</td>
             <td>${item.geometry.coordinates[1]}</td>
             <td>${item.geometry.coordinates[0]}</td>
+
         `
         resultsTableBody.append(newRow);
         
