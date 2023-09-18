@@ -1,7 +1,6 @@
 /*======================WINDOW ONLOAD GEOJSON VERSION===================*/
 let csvResult = null;
 let finalItems = null;
-let resultsTableContainer = null;
 let meteoriteData = null;
 
 window.onload = function() {
@@ -32,12 +31,13 @@ const summaryMetrics = document.querySelector(".summary-metrics");
 const summaryMetricsBtn = document.querySelector(".summary-metrics-btn");
 const leafletMap = document.querySelector(".leaflet-map");
 const contentDisplay = document.querySelector(".content-display");
+const resultsTableContainer = document.querySelector(".table-container");
+
 
 
 ctaButton.addEventListener("click", () => {
 
     openingContent.style.display = "none";
-    resultsTableContainer = document.querySelector(".table-container");
     resultsTableContainer.style.display = "block";
     summaryMetricsBtn.style.display = "block";
 
@@ -60,6 +60,7 @@ function toggleMapFunction() {
             tableMapBtn.innerHTML = `TABLE MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "none";
             summaryMetrics.style.display = "none";
+            resultsTableContainer.style.display = "none";
         } else {
             tableMapBtn.innerHTML = `MAP MODE <span class="btn-circle"></span>`;
             summaryMetricsBtn.style.display = "block";
