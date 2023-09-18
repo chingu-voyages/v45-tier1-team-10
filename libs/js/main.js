@@ -54,6 +54,8 @@ toggleMap.addEventListener("click", toggleMapFunction);
 
 function toggleMapFunction() {
 
+    openingContent.style.display = "none";
+
     footer.classList.toggle("map-mode");
 
         if(!contentDisplay.classList.contains("map-mode")) {
