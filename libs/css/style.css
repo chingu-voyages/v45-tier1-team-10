@@ -81,11 +81,8 @@ body {
 .content-display .table-container::-webkit-scrollbar-thumb {
   background-color: #f5f5f5;
 }
-/*need to start removing columns at 700px and also make width wider*/
-/*also need to make adjustments to sum met box for smaller screens*/
 
 .content-display .results-table {
-  /* margin: 3rem auto; */
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
   height: 100%;
@@ -243,6 +240,29 @@ footer  option {
     cursor: pointer;
 }
 
+button#mybtn, #tableMapBtn {
+  position: relative;
+  width: 130px;
+  padding: 10px 20px 10px 5px;
+  background: linear-gradient(135deg, #010101, #000b49);
+  color: #f5f5f5;
+  font-weight: bold;
+  border: 1.5px solid #f5f5f5;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-circle {
+  float: left; 
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #FFDC73;
+  border-radius: 50%;
+}
 
 /*===================CLASSLIST: FOOTER-UP==================*/
 
@@ -331,30 +351,15 @@ footer  option {
   display: flex;
   align-items: center;
 }
-button#mybtn, #tableMapBtn {
-  position: relative;
-  width: 130px;
-  padding: 10px 20px 10px 5px;
-  background: linear-gradient(135deg, #010101, #000b49);
-  color: #f5f5f5;
-  font-weight: bold;
-  border: 1.5px solid #f5f5f5;
-  border-radius: 10px;
-  cursor: pointer;
-  /* margin-left: 20px; */
+
+.day-mode .table-container::-webkit-scrollbar {
+  background-color: #010101;
 }
-.btn-circle {
-  /* display: inline-block; */
-  float: left; 
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-color: #FFDC73;
-  border-radius: 50%;
+
+.day-mode .table-container::-webkit-scrollbar-thumb {
+  background-color: #bedfff;
 }
+
 .day-mode .btn-circle {
   background-color: #0084FF;
 }
@@ -369,12 +374,11 @@ button#mybtn, #tableMapBtn {
 }
 
 .day-mode {
-  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url('/assets/images/daymode-pexels-eberhard-grossgasteiger.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.1)),url('/assets/images/daymode-pexels-eberhard-grossgasteiger.jpg');
+  background-position: center top;
   color: #010101;
 }
+
 .day-mode #mybtn,
 .day-mode #footerBtn,
 .day-mode #tableMapBtn,
@@ -386,7 +390,7 @@ button#mybtn, #tableMapBtn {
 }
 .day-mode footer { 
   background-color: #bedfff;
-  background-size: cover;
+  /* background-size: cover; */
   background-position: center;
   background-repeat: no-repeat;
 } 
@@ -419,8 +423,8 @@ button#mybtn, #tableMapBtn {
   border-radius: 10px;
 }
 
-.day-mode .results-table {
-  background: rgb(190, 223, 255, .5);
+.day-mode .table-container {
+  background: rgb(190, 223, 255, .1);
 }
 
 .day-mode .results-table tbody tr:hover {
@@ -432,6 +436,10 @@ button#mybtn, #tableMapBtn {
 .day-mode .table-body tr,
 .day-mode .table-body td {
   border: 1px solid #010101;
+}
+
+.day-mode .summary-metrics {
+  background-color: #bedfff;
 }
 
 
