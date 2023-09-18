@@ -14,7 +14,7 @@ body {
   max-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(/assets/images/bg.jpg);
+  background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),url('/assets/images/nightmode-pexels-stein-egil-liland.jpg');
 }
 
 .overlay {
@@ -100,7 +100,7 @@ button#mybtn, #tableMapBtn {
     padding: 10px 10px 10px 10px;
   }
 .day-mode {
-  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url(/assets/images/day-bg.avif);
+  background-image: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url('/assets/images/daymode-pexels-eberhard-grossgasteiger.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
